@@ -2,21 +2,28 @@
 
 Väliaikainen projektidokumentti listana tehtävistä asioista. Poistetaan projektin valmistuttua. 
 
+## Nyt heti
+- kaavat pdf
+- viikoraportti
+- tuntikirjanpito
+- testausdokumentti
+- coverage
+- tehty koodi gitiin
+- README.md päivitys
+- määrittelydokumentin päivitys
+
+
+
 ## Kriittiset ongelmat
 - 
 
 ## Seuraavat tehtävät
-- MNIST datan luku
-    - tietorakenne miten tallennetaan, numpy array (x,y) pisteinä?
 - Apufunktiot:
     - suoritusajan mittaus (ainakin kehityksen aikaiseksi apuvälineeksi)
     - visualisointi MNIST kirjaimet, sanity checkinä
-- Hausdorff etäisyydet
-    - tietorakenne, järjestetty lista?
-
-
 
 ## Myöhemmin tehtävät
+- polut osittain kovakoodattuna, pitää tehdä järkevämmin setupeissa. Antaa olla toistaiseksi, jotta koodi etenee
 - UI
     - tässä vaiheessa ei juuri ideaa miten, ehkä alussa mennään komentoriviversiolla
 - kNN brute force lähtökohdaksi
@@ -24,3 +31,21 @@ Väliaikainen projektidokumentti listana tehtävistä asioista. Poistetaan proje
 - toteutusdokumentti
 - testausdokumentti
 - manuaali
+
+
+
+## Huomioita:
+- MNIST datan käsittely pistejoukoksi on hidas (ajoajat alla)
+- kuitenkin ei ehkä oleellisin asia, koska tämä tehdään vain kerran alustuksessa
+- annetaan olla toistaiseksi
+load training data
+0.9426085948944092
+process training data
+5.1875410079956055
+load testing data
+0.14176249504089355
+process testing data
+0.852686882019043
+Total
+7.25963830947876
+
