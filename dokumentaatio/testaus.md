@@ -6,9 +6,8 @@
 - luokalle UndirectedHausdorff toteutettu yksikkötestit
     - testitapauksena sama pistejoukko kuin luokalle DirectedHausdorff, ja vertailuarvoina myös manuaalisesti taulukkolaskennassa lasketut arvot
 - luokalle Mnistrawdata toteutetty yksikkötestit
-    - x
-    - 
+    - testataan lähinnä, että kaikki data luetaan (oikea määrä datapisteitä), ja että arvot ovat oikealla välillä
 
 ## Testikattavuus
-- x
+- [Testikattavuusraportti](dokumentaatio/TestCoverageReport.png)
 
