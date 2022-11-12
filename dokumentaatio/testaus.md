@@ -11,3 +11,6 @@
 ## Testikattavuus
 - [Testikattavuusraportti](dokumentaatio/TestCoverageReport.png)
 
+## Koodin laadunseuranta
+- toteutuille luokille pylint arvio 10.00/10
+- .pylintrc :ssä disabloitu virhe C0103 "invalid name", snake_case konvention noudattaminen johtaisi siihen, että matemaattiset muuttujat pitäisi nimetä lähdejulkaisusta poikkeavalla tavalla, ja tämä tekisi koodisti vaikeasti ymmärrettävää. 

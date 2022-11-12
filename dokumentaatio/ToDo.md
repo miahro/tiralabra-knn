@@ -2,18 +2,6 @@
 
 Väliaikainen projektidokumentti listana tehtävistä asioista. Poistetaan projektin valmistuttua. 
 
-## Nyt heti
-- kaavat pdf
-- viikoraportti
-- tuntikirjanpito
-- testausdokumentti
-- coverage
-- tehty koodi gitiin
-- README.md päivitys
-- määrittelydokumentin päivitys
-
-
-
 ## Kriittiset ongelmat
 - 
 
@@ -31,7 +19,7 @@ Väliaikainen projektidokumentti listana tehtävistä asioista. Poistetaan proje
 - toteutusdokumentti
 - testausdokumentti
 - manuaali
-
+- määrittelydokumentin päivitys
 
 
 ## Huomioita:
