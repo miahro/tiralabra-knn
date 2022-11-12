@@ -1,0 +1,12 @@
+#leave out for now, needs to be added later
+#src/
+src/timer.py
+src/visualize.py
+
+ToDo.md
+
+#leave out for now
+data/ 
+
+#leave out for now
+mnist_get_data.sh 

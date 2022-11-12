@@ -1,0 +1,8 @@
+[MASTER]
+ignore=timer.py,visualize.py,main.py
+
+[MESSAGES CONTROL]
+
+disable=C0103
+
+
