@@ -9,7 +9,7 @@
     - testikattavuus 88%, koska testitapaus testaa vain jo ladatun tiedoston tapauksen. Korjataan ja laajennetaan seuraaviin palautuksiin.
 
 ## Testikattavuus
-![Testikattavuusraportti](dokumentaatio/TestCoverageReport.png)
+![Testikattavuusraportti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/TestCoverageReport.png)
 
 ## Koodin laadunseuranta
 - toteutuille luokille ja moduleille pylint arvot 9.20-10.00
