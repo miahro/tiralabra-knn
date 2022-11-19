@@ -52,3 +52,13 @@ B=np.array([
         [24,25],
         [24,24]
     ])
+
+
+Am = np.full((28,28), False)
+for a in A:
+    Am[a[0]][a[1]]=True
+
+
+Bm = np.full((28,28), False)
+for b in B:
+    Bm[b[0]][b[1]]=True
