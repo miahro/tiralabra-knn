@@ -21,17 +21,19 @@ class Mnistdata:
 
     def __init__(self, filter_value):
         X_train_temp = self.download(TRAIN_X_URL)[0x10:].reshape((-1, 28, 28))
-        self.Y_train = self.download(TRAIN_Y_URL)[8:]
+        self.Y_train = self.download(TRAIN_Y_URL)[8:].tolist()
         X_test_temp = self.download(TEST_X_URL)[0x10:].reshape((-1, 28, 28))
-        self.Y_test = self.download(TEST_Y_URL)[8:]
+        self.Y_test = self.download(TEST_Y_URL)[8:].tolist()
         X_train_filt_temp = X_train_temp >= filter_value
-        self.X_train = list(X_train_filt_temp)
-#        self.X_train = [item for item in X_train_filt_temp]
-        self.X_train_point_list = [np.transpose(np.nonzero(x)) for x in self.X_train]
+        self.X_train = X_train_filt_temp.tolist()
+
+
+#        self.X_train = list(X_train_filt_temp)
+        self.X_train_point_list = [np.transpose(np.nonzero(x)).tolist() for x in self.X_train]
         X_test_filt_temp = X_test_temp >= filter_value
-        self.X_test = list(X_test_filt_temp)
-        #self.X_test = [item for item in X_test_filt_temp]
-        self.X_test_point_list = [np.transpose(np.nonzero(x)) for x in self.X_test]
+#        self.X_test = list(X_test_filt_temp)
+        self.X_test = X_test_filt_temp.tolist()
+        self.X_test_point_list = [np.transpose(np.nonzero(x)).tolist() for x in self.X_test]
 
     @staticmethod
     def download(url):
