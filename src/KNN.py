@@ -80,6 +80,7 @@ class KNN:
         for test_index in range(self.n):
             heap=[]
             for train_index in range(self.m):
+                self.counter0 += 1
                 sum_AB=0
                 for a in self.X_test_points[test_index]:
                     not_found = True
@@ -99,6 +100,7 @@ class KNN:
                                 not_found = False
                                 break
                     if not_found:
+                        self.counter5 += 1       
                         sum_AB += min([euclidean(a,b) for b in self.X_train_points[train_index]])                
 
                 sum_BA=0
@@ -118,13 +120,14 @@ class KNN:
                                 not_found = False
                                 break
                     if not_found:
+                        self.counter5 += 1                        
                         sum_BA += min([euclidean(b,a) for a in self.X_test_points[test_index]])
 
 
 
 
                 d = sum_AB + sum_BA
-                heappush(heap, (d,test_index))
+                heappush(heap, (d,train_index))
             neighbors = []
             for _ in range(self.k):
                 h = heappop(heap)
@@ -170,29 +173,13 @@ class KNN:
                         sum_AB += self.edm[close[0]+2][close[1]+2]
                         not_found = False
                         break
-                # else:
-                #     continue
-                # break
+
             if not_found:
+                self.counter5 += 1
 #               sum_AB=0
                 sum_AB += min([euclidean(a,b) for b in self.X_train_points[train_index]])
          
-                #sum_AB += self.dist_point_set_all(a, self.X_train_points[train_index])
 
-            # self.counter3+=1
-            # for i in range(max(a[0]-self.layers, 0), min(self.layers+a[0],27)): 
-            #     for j in range(max(a[1]-self.layers, 0), min(self.layers+a[1], 27)):
-            #         if Bm[i][j]:
-            #             self.counter4 +=1 
-            #             sum_AB += self.edm[i-a[0]][j-a[1]]
-            #             break
-            #     else:
-            #         continue
-            #     break
-
-
-
-            #else: #jos ei löytynyt matriista, lasketaan etäisyydet pistelistoista
 
         sum_BA=0
         for b in self.X_train_points[train_index]:
@@ -216,49 +203,12 @@ class KNN:
                 #     continue
                 # break
             if not_found:
- #               sum_BA =0 
+                self.counter5 += 1
                 sum_BA += min([euclidean(b,a) for a in self.X_test_points[test_index]])
 
 #                sum_AB += self.dist_point_set_all(b, self.X_test_points[test_index])
 
-#                sum_AB += self.dist_point_set_all(b, Al)
-        # for b in Bl: #sama kuin yllä suuntaan BA
-        #     not_found=True
-        #     self.counter1 += 1        
-        #     if Am[b[0]][b[1]]:
-        #         self.counter2 += 1
-        #         continue
-        #     self.counter3+=1
-        #     for i in range(-self.layers, self.layers):
-        #         if b[0]+i < 0 or b[0]+i > 27:
-        #             break
-        #         if b[1]+j < 0 or b[1]+j > 27:
-        #             if Am[i+b[0]][j+b[1]]:
-        #                 self.counter4 +=1 
-        #                 sum_BA += self.edm[i+self.layers][j+self.layers]
-        #                 not_found = False
-        #                 break
-        #         else:
-        #             continue
-        #         break
-        #     if not_found:
-        #         sum_BA += self.dist_point_set_all(b, Al)
 
-
-        # sum_BA=0
-        # for b in Bl: #sama kuin yllä suuntaan BA
-        #     if Am[b[0]][b[1]]:
-        #         continue
-        #     for i in range(max(b[0]-self.layers, 0), min(self.layers+b[0],27)):
-        #         for j in range(max(b[1]-self.layers, 0), min(self.layers+b[1], 27)):
-        #             if Am[i][j]:
-        #                 sum_BA += self.edm[i-b[0]][j-b[1]]
-        #                 break
-        #         else:
-        #             continue
-        #         break
-
-            #else:
 
         return sum_AB+sum_BA
 
@@ -266,18 +216,11 @@ class KNN:
     def dist_point_set_all(self,a,B):
         """pisteen ja pistejoukon minimietäisyyden laskenta toistaiseksi omana funktionaan"""
 #        return min([euclidean(a,b) for b in B])
-#        return 0
         minimum = 1000000
         self.counter5 += 1
         for b in B:
-
-#            dist = self.e4d[a[0]][a[1]][b[0]][b[1]]
             dist = euclidean(a,b)
             if minimum > dist:
                 minimum = dist
         return minimum
-
-
-        #return min([self.e4d[a[0]][a[1]][b[0]][b[1]] for b in B])
-
 
