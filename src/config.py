@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+directory = os.path.dirname(__file__)
+
 """konfigurointitiedot, vakioita"""
 
 TRAIN_X_URL = "http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz"
