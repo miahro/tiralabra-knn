@@ -8,6 +8,7 @@ class TestMnistdata(unittest.TestCase):
     def setUp(self):
         """luodaan mnistwardata olio lukemalla tietokanta
         filteriarvona tässä mielivaltainen 115"""
+        pass
         self.mndata = Mnistdata(filter_value=115)
 
     def test_X_train_matrix(self):
@@ -15,9 +16,8 @@ class TestMnistdata(unittest.TestCase):
         oikean kokoisia matriiseja"""
         self.assertEqual(len(self.mndata.X_train_matrix()), 60000)
         self.assertEqual(len(self.mndata.X_train_matrix(start=0, end=5000)), 5000)
-        for i in range(100):
-            self.assertEqual(self.mndata.X_train_matrix(start=0, end=100)[i].shape, (28,28))
-
+        self.assertEqual(len(self.mndata.X_train_matrix(start=0, end=100)[0]),28)
+        self.assertEqual(len(self.mndata.X_train_matrix(start=0, end=100)[0][0]),28)
 
     def test_X_train_point_list(self):
         """testataan, että pistelista esitysmuoto on oikean muotoinen"""
@@ -29,9 +29,9 @@ class TestMnistdata(unittest.TestCase):
         oikeankokosia matriiseja"""
         self.assertEqual(len(self.mndata.X_test_matrix()), 10000)
         self.assertEqual(len(self.mndata.X_test_matrix(start=0, end=5000)), 5000)
-        for i in range(100):
-            self.assertEqual(self.mndata.X_test_matrix(start=0, end=100)[i].shape, (28,28))
-
+        for i in range(10):
+            self.assertEqual(len(self.mndata.X_test_matrix(start=0, end=100)[i]),28)
+            self.assertEqual(len(self.mndata.X_test_matrix(start=0, end=100)[i][0]),28)
 
     def test_X_test_point_list(self):
         """testataan, että pistelista esitysmuoto on oikean muotoinen"""
@@ -51,21 +51,21 @@ class TestMnistdata(unittest.TestCase):
 
     def test_read_Y_train_labels_range(self):
         """testataan, että testi_Y arvot ovat välillä 0-9"""
-        Y = self.mndata.Y_train_labels(start=500, end=1000)
+        Y = self.mndata.Y_train_labels(start=500, end=550)
         for y in Y:
             self.assertTrue(0 <= y <= 9)
 
 
     def test_read_Y_test_labels_range(self):
         """testataan, että testi_Y arvot ovat välillä 0-9"""
-        Y = self.mndata.Y_train_labels(start=500, end=1000)
+        Y = self.mndata.Y_train_labels(start=500, end=550)
         for y in Y:
             self.assertTrue(0 <= y <= 9)
 
 
     def test_read_X_train_list_range(self):
         """testataan, että training_X xy-arvot ovat välillä 0-27 """
-        L = self.mndata.X_train_list(start=500, end=1000)
+        L = self.mndata.X_train_list(start=500, end=550)
         for X in L:
             for x in X:
                 self.assertTrue(0 <= x[0] <= 27)
@@ -73,7 +73,7 @@ class TestMnistdata(unittest.TestCase):
 
     def test_read_X_test_list_range(self):
         """testataan, että training_X xy-arvot ovat välillä 0-27 """
-        L = self.mndata.X_test_list(start=500, end=1000)
+        L = self.mndata.X_test_list(start=500, end=550)
         for X in L:
             for x in X:
                 self.assertTrue(0 <= x[0] <= 27)
