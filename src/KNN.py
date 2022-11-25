@@ -2,17 +2,13 @@
 
 from heapq import heappush, heappop
 from collections import Counter
-from utils import euclidean, euclidean_dist_matrix, euclidean_4D
-
-point_list = [(-1, 0), (1,0), (0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1),
-                        (2,0), (-2,0), (0,-2), (0,2), (-1, -2), (-1, 2), (1,-2), (1,2),
-                        (-2, -1), (-2,1), (2,-1), (2,1), (-2,-2), (-2,2), (2,-2), (2,2),
-                        ]
+from utils import euclidean, euclidean_dist_matrix, square_distance, square_dist_matrix
+#import math
 
 
 class KNN:
     """"K:n lähimmän naapurin luokka sisältää myös funktion Hausdorffin etäisyyden laskemiseksi"""
-    def __init__(self, X_train_points, X_train_matrix, Y_train, X_test_points, X_test_matrix, k=3):
+    def __init__(self, X_train_points, X_train_matrix, Y_train, X_test_points, X_test_matrix, point_list, k=3, layers=4):
         """konstruktori
         Args:   X_train_points: X train kuvat pistelistamuodossa
                 X_train_matrix: X train kuvat matriisina
@@ -28,20 +24,26 @@ class KNN:
         self.X_test_matrix = X_test_matrix
         self.n = len(self.X_test_points)
         self.m = len(self.X_train_points)
-        self.layers = 2 # ei voi jäädä näin, määriteltävä jossain järkevässä paikassa
-        self.edm = euclidean_dist_matrix(layers=self.layers)
-        self.e4d = euclidean_4D(28)
-        self.counter0=0
-        self.counter1=0
-        self.counter2=0
-        self.counter3=0
-        self.counter4=0
-        self.counter5=0
+        self.layers = layers 
+        self.edm = square_dist_matrix(layers=self.layers).tolist()
+#         self.edm = [[32, 25, 20, 17, 16, 17, 20, 25, 32],
+#  [25, 18, 13, 10,  9, 10, 13, 18, 25],
+#  [20, 13,  8,  5,  4,  5,  8, 13, 20],
+#  [17, 10,  5,  2,  1,  2,  5, 10, 17],
+#  [16,  9,  4,  1,  0,  1,  4,  9, 16],
+#  [17, 10,  5,  2,  1,  2,  5, 10, 17],
+#  [20, 13,  8,  5,  4,  5,  8, 13, 20],
+#  [25, 18, 13, 10,  9, 10, 13, 18, 25],
+#  [32, 25, 20, 17, 16, 17, 20, 25, 32]]
 
+        self.point_list = point_list
 
     def predict(self):
         """KNN ennustamat ominaisuudet (numero 0-9)
-        toteutus listana"""
+        toteutus listana
+        kutsuu hausdorffin etäisyyttä funktiona
+        kehitysvaiheeheen funktio tulosten oikeellisuuden tarkastamiseksi
+        """
         Y_pred = []
         for i in range(self.n):
             distance=[]
@@ -58,7 +60,10 @@ class KNN:
 
     def predict2(self):
         """KNN ennustamat ominaisuudet (numero 0-9)
-        toteutus minimikekona"""
+        toteutus minimikekona
+        kutsuu hausdorffin etäisyyttä funktiona
+        kehitysvaiheeheen funktio tulosten oikeellisuuden tarkastamiseksi
+        """
         Y_pred = []
         for i in range(self.n):
             heap=[]
@@ -75,56 +80,52 @@ class KNN:
 
     def predict3(self):
         """KNN ennustamat ominaisuudet (numero 0-9)
-        toteutus minimikekona"""
+        toteutus minimikekona
+        hausdorffin etäisyyden laskenta sisäänrakennettu funktioon
+        """
         Y_pred = []
         for test_index in range(self.n):
             heap=[]
             for train_index in range(self.m):
-                self.counter0 += 1
                 sum_AB=0
                 for a in self.X_test_points[test_index]:
                     not_found = True
-                    self.counter1 += 1
-                    #onko päällekkäinen piste?
                     if self.X_train_matrix[train_index][a[0]][a[1]]: 
-                        self.counter2 += 1
-                        not_found = False
                         continue
-                    self.counter3+=1
-                    for close in point_list:
+                    for close in self.point_list:
                         if close[0] + a[0 ]<0 or close[0]+ a[0]>27 or close[1] + a[1]<0 or close[1]+a[1]>27:
                             continue
                         if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                                self.counter4 +=1 
-                                sum_AB += self.edm[close[0]+2][close[1]+2]
+                                sum_AB += self.edm[close[0]+self.layers][close[1]+self.layers]
                                 not_found = False
                                 break
                     if not_found:
-                        self.counter5 += 1       
-                        sum_AB += min([euclidean(a,b) for b in self.X_train_points[train_index]])                
+                        minimum = 1000000
+                        for b in self.X_train_points[train_index]:
+                            temp = (a[0]-b[0])**2+(a[1]-b[1])**2
+                            if temp < minimum:
+                                minimum = temp
+                        sum_AB += minimum
 
                 sum_BA=0
                 for b in self.X_train_points[train_index]:
                     not_found = True
-                    self.counter1 += 1
                     if self.X_test_matrix[test_index][b[0]][b[1]]: 
-                        self.counter2 += 1
                         continue
-                    self.counter3+=1
-                    for close in point_list:
+                    for close in self.point_list:
                         if close[0] + b[0 ]<0 or close[0]+ b[0]>27 or close[1] + b[1]<0 or close[1]+b[1]>27:
                             continue
                         if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                                self.counter4 +=1 
-                                sum_BA += self.edm[close[0]+2][close[1]+2]
+                                sum_BA += self.edm[close[0]+self.layers][close[1]+self.layers]
                                 not_found = False
                                 break
                     if not_found:
-                        self.counter5 += 1                        
-                        sum_BA += min([euclidean(b,a) for a in self.X_test_points[test_index]])
-
-
-
+                        minimum = 1000000
+                        for a in self.X_test_points[test_index]:
+                            temp = (a[0]-b[0])**2+(a[1]-b[1])**2
+                            if temp < minimum:
+                                minimum = temp
+                        sum_BA += minimum
 
                 d = sum_AB + sum_BA
                 heappush(heap, (d,train_index))
@@ -143,84 +144,48 @@ class KNN:
             suunnattu funktio d6b (eli painottamaton summa)
             ja tässä vaiheessa suuntaamattoman etäisyyden funktio summana d(A,B)+d(B,A)
         """
-
- 
-
         sum_AB=0
 
-#        Al=self.X_test_points[test_index]
-#        Am=self.X_test_matrix[test_index]
-#        Bl=self.X_train_points[train_index]
-#        Bm=self.X_train_matrix[train_index]
-        self.counter0 +=1
-#        print(len(Al))
-#        for a in Al:
         for a in self.X_test_points[test_index]:
             not_found = True
-            self.counter1 += 1
-            #onko päällekkäinen piste?
             if self.X_train_matrix[train_index][a[0]][a[1]]: 
-                self.counter2 += 1
-                not_found = False
                 continue
-#            etsitään ensin matriisista x kerrosta
-            self.counter3+=1
-            for close in point_list:
+            for close in self.point_list:
                 if close[0] + a[0 ]<0 or close[0]+ a[0]>27 or close[1] + a[1]<0 or close[1]+a[1]>27:
                     continue
                 if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                        self.counter4 +=1 
-                        sum_AB += self.edm[close[0]+2][close[1]+2]
+                        sum_AB += self.edm[close[0]+self.layers][close[1]+self.layers]
                         not_found = False
                         break
 
             if not_found:
-                self.counter5 += 1
-#               sum_AB=0
-                sum_AB += min([euclidean(a,b) for b in self.X_train_points[train_index]])
+                sum_AB += min([square_distance(a,b) for b in self.X_train_points[train_index]])
          
 
 
         sum_BA=0
         for b in self.X_train_points[train_index]:
             not_found = True
-            self.counter1 += 1
-            #onko päällekkäinen piste?
             if self.X_test_matrix[test_index][b[0]][b[1]]: 
-                self.counter2 += 1
                 continue
-            # #etsitään ensin matriisista x kerrosta
-            self.counter3+=1
-            for close in point_list:
+            for close in self.point_list:
                 if close[0] + b[0 ]<0 or close[0]+ b[0]>27 or close[1] + b[1]<0 or close[1]+b[1]>27:
                     continue
                 if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                        self.counter4 +=1 
-                        sum_BA += self.edm[close[0]+2][close[1]+2]
+                        sum_BA += self.edm[close[0]+self.layers][close[1]+self.layers]
                         not_found = False
                         break
-                # else:
-                #     continue
-                # break
             if not_found:
-                self.counter5 += 1
-                sum_BA += min([euclidean(b,a) for a in self.X_test_points[test_index]])
-
-#                sum_AB += self.dist_point_set_all(b, self.X_test_points[test_index])
-
-
+                sum_BA += min([square_distance(b,a) for a in self.X_test_points[test_index]])
 
         return sum_AB+sum_BA
 
-    #@staticmethod
-    def dist_point_set_all(self,a,B):
-        """pisteen ja pistejoukon minimietäisyyden laskenta toistaiseksi omana funktionaan"""
-#        return min([euclidean(a,b) for b in B])
-        minimum = 1000000
-        self.counter5 += 1
-        for b in B:
-            dist = euclidean(a,b)
-            if minimum > dist:
-                minimum = dist
-        return minimum
-
+    # #@staticmethod
+    # def dist_point_set_all(self,a,B):
+    #     """pisteen ja pistejoukon minimietäisyyden laskenta toistaiseksi omana funktionaan"""
+    #     minimum = 1000000
+    #     for b in B:
+    #         dist = euclidean(a,b)
+    #         if minimum > dist:
+    #             minimum = dist
+    #     return minimum
