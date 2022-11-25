@@ -27,7 +27,6 @@ class Mnistdata:
         X_train_filt_temp = X_train_temp >= filter_value
         self.X_train = X_train_filt_temp.tolist()
 
-
 #        self.X_train = list(X_train_filt_temp)
         self.X_train_point_list = [np.transpose(np.nonzero(x)).tolist() for x in self.X_train]
         X_test_filt_temp = X_test_temp >= filter_value
