@@ -53,6 +53,34 @@ B=np.array([
         [24,24]
     ])
 
+A2=np.array([
+        [4,4]
+    ])
+
+C2=np.array([
+        [6,6],
+    ])
+
+
+C=np.array([
+        [6,6],
+        [27,26],
+        [26,27],
+        [26,26],
+        [27,25],
+        [25,27],
+        [26,25],
+        [25,26],
+        [25,25],
+        [27,24],
+        [24,27],
+        [26,24],
+        [24,26],
+        [25,24],
+        [24,25],
+        [24,24]
+    ])
+
 
 Am = np.full((28,28), False)
 for a in A:
@@ -62,3 +90,16 @@ for a in A:
 Bm = np.full((28,28), False)
 for b in B:
     Bm[b[0]][b[1]]=True
+
+Cm = np.full((28,28), False)
+for c in C:
+    Cm[c[0]][c[1]]=True
+
+
+A2m = np.full((28,28), False)
+for a in A2:
+    A2m[a[0]][a[1]]=True
+
+C2m = np.full((28,28), False)
+for c in C2:
+    C2m[c[0]][c[1]]=True
