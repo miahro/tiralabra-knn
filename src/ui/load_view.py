@@ -1,7 +1,9 @@
 from tkinter import ttk, constants, StringVar, IntVar
+from datahandler import DataHandler
+from mnistdata import Mnistdata
 
 class LoadView:
-    def __init__(self, root, handle_set_param, show_set_param_view):
+    def __init__(self, root, handle_set_param, show_set_param_view, datahandler):
         self._root = root
         self._handle_set_param = handle_set_param
         self._show_set_param_view = show_set_param_view
@@ -9,6 +11,7 @@ class LoadView:
         self._message = None
         self._message_label = None
         self._filter_value = 128
+        self._datahandler = datahandler
 
         self._initialize()
 
@@ -48,6 +51,11 @@ class LoadView:
 
     def _load(self):
         print("load function functionality here")
+        print(self._datahandler.filter_value)
+        self._datahandler.set_filter(self._filter_value)
+        print(self._datahandler.filter_value)
+        self._datahandler.read_mnist()
+        #print(mnist.Y_train[0])
         #lataustoiminnallisuus lisättävä tähän
         self._show_set_param_view()
 

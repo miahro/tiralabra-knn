@@ -3,6 +3,7 @@ from ui.set_param_view import SetParamView
 from ui.param_view import ParamView
 from ui.result_view import ResultView
 from ui.load_view import LoadView
+from datahandler import DataHandler
 
 
 #from ui.start_view  import StartView
@@ -17,6 +18,8 @@ class UI:
     def __init__(self, root):
         self._root = root
         self._current_view = None
+        self._mnist = None
+        self._datahandler = DataHandler()
 
 
     def start(self):
@@ -46,6 +49,7 @@ class UI:
         self._root, 
         self._handle_load,
         self._handle_param,
+        self._datahandler
         #self._show_set_param_view
         )
         self._current_view.pack()
@@ -72,7 +76,8 @@ class UI:
         self._current_view = LoadView(
         self._root, 
         self._handle_set_param,
-        self._show_set_param_view
+        self._show_set_param_view,
+        self._datahandler
         )              
         self._current_view.pack()
        

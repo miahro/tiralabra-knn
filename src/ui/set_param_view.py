@@ -1,7 +1,8 @@
 from tkinter import ttk, constants, Label, StringVar
+from datahandler import datahandler
 
 class SetParamView:
-    def __init__(self, root, handle_load, handle_param):
+    def __init__(self, root, handle_load, handle_param, datahandler):
         self._root = root
         self._handle_load = handle_load
         self._handle_param = handle_param
@@ -13,6 +14,8 @@ class SetParamView:
         self._train_index_end = 100
         self._k_value = 3
         self._layers = 4 
+        self._datahandler = datahandler
+#        self._mnist = mnist
 
         self._initialize()
 
@@ -181,8 +184,10 @@ class SetParamView:
         txt5 = ttk.Label(master=self._frame,
                          text=f"Kerrokset {self._layers}")
         txt5.grid(row=12, column=200, padx=5, pady=5, sticky=constants.EW)
-
-
+        txt6 = ttk.Label(master=self._frame,
+                         text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
+        txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
+        print(self._root)
 
 
 

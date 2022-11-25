@@ -2,6 +2,7 @@
 from mnistdata import Mnistdata
 from KNN import KNN
 from utils import square_dist_matrix, list_of_indices
+from timer import Timer
 
 class DataHandler:
     """ylätason luokka joka kutsuu Mnistdata luokan oliolta 
@@ -21,6 +22,7 @@ class DataHandler:
         self.Y_predicted = None
         self.knn = None
         self.filter_value = 128 #oletusarvo
+        self.timer = Timer()
 
     def read_mnist(self):
         """lukee Mnist tietokannan"""
@@ -55,8 +57,10 @@ class DataHandler:
 
 
     def predict(self):
+        self.timer.start()
         self.Y_predicted = self.knn.predict3()
-    
+        self.timer.stop()
+
     def evaluate(self):
         if self.Y_predicted is None:
             return {}
@@ -68,8 +72,10 @@ class DataHandler:
             wrong_ind_orig_mnist = []
             for i in range(len(wrong_ind)):
                 wrong_ind_orig_mnist.append(wrong_ind[i]+self.test_index_start)
-            return {"Y-predicted": self.Y_predicted, "correct": len(self.Y_test)-len(wrong_ind), "wrong": len(wrong_ind), "wrong_ind": wrong_ind, "wrong_orig_mnist": wrong_ind_orig_mnist}
+            return {"Y-predicted": self.Y_predicted, "correct": len(self.Y_test)-len(wrong_ind), "wrong": len(wrong_ind), "wrong_ind": wrong_ind, "wrong_orig_mnist": wrong_ind_orig_mnist, "runtime": self.timer.result()}
 
     def write_results_to_file(self):
         pass
         #tämä pitää tehdä
+
+datahandler = DataHandler()
