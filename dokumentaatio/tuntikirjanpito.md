@@ -18,6 +18,11 @@ Tiralabra käytetyt tunnit.
 | 3 | 17.11. | 6    | epäonnistuneita yrityksiä toteuttaa Hausdorff etäisyyksien laskentaa järkevästi |
 | 3 | 18.11. | 8    | KNN luokan sekä siihen integroitudun Hausdorff etäisyyslaskennan toteutus, alustavia testeja MNIST datalla |
 | 3 | 19.11. | 6    | bugikorjauksia, dokumentaation päivitys, yksikkötestit, koodin siistiminen |
+| 4 | 20.11. | 3    | korjattu KNN / Hausdorff laskennan bugeja |
+| 4 | 21.11. | 3    | optimoitu (tai ainakin yritetty) Hausdoff laskentaa |
+| 4 | 24.11. | 8    | toteutettu Datahandler luokka, aloitettu käyttöliittymää |
+| 4 | 25.11. | 8    | jatkettu käyttöliittymää, kirjoitettu yksikkötestejä, testattu suorituskykyä |
+| 4 | 26.11. | 6    | jatkettu käyttöliittymää, testattu, päivitetty dokumentaatiota |
 
 
 **Yhteensä**
@@ -26,8 +31,8 @@ Tiralabra käytetyt tunnit.
 | 1   | 13   | 
 | 2   | 26   | 
 | 3   | 25   | 
-| 4   | x   | 
+| 4   | 28   | 
 | 5   | x   | 
-| 5   | x   | 
-| yht | 64 |
+| 6   | x   | 
+| yht | 92 |
 
