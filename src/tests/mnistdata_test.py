@@ -8,7 +8,6 @@ class TestMnistdata(unittest.TestCase):
     def setUp(self):
         """luodaan mnistwardata olio lukemalla tietokanta
         filteriarvona tässä mielivaltainen 115"""
-        pass
         self.mndata = Mnistdata(filter_value=115)
 
     def test_X_train_matrix(self):
@@ -48,20 +47,17 @@ class TestMnistdata(unittest.TestCase):
         self.assertEqual(len(self.mndata.Y_test_labels()), 10000)
         self.assertEqual(len(self.mndata.Y_test_labels(start=0, end=5000)), 5000)
 
-
     def test_read_Y_train_labels_range(self):
         """testataan, että testi_Y arvot ovat välillä 0-9"""
         Y = self.mndata.Y_train_labels(start=500, end=550)
         for y in Y:
             self.assertTrue(0 <= y <= 9)
 
-
     def test_read_Y_test_labels_range(self):
         """testataan, että testi_Y arvot ovat välillä 0-9"""
         Y = self.mndata.Y_train_labels(start=500, end=550)
         for y in Y:
             self.assertTrue(0 <= y <= 9)
-
 
     def test_read_X_train_list_range(self):
         """testataan, että training_X xy-arvot ovat välillä 0-27 """
@@ -78,5 +74,3 @@ class TestMnistdata(unittest.TestCase):
             for x in X:
                 self.assertTrue(0 <= x[0] <= 27)
                 self.assertTrue(0 <= x[1] <= 27)
-
-

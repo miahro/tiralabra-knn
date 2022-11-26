@@ -9,10 +9,9 @@ class TestKNN(unittest.TestCase):
     def setUp(self):
         """luodaan testi joukot python modulissa testcases määritellyistä joukoista
         A ja B."""
-        point_list = list_of_indices(square_dist_matrix(layers=3))
-        self.knn = KNN([A], [Am], [1], [B], [Bm], point_list, k=1)
-        self.knn_same = KNN([A], [Am], [1], [A], [Am], point_list, k=1)
-        self.knn_close = KNN([A], [Am], [1], [C], [Cm], point_list, k=1)
+        self.knn = KNN([A], [Am], [1], [B], [Bm], k=1)
+        self.knn_same = KNN([A], [Am], [1], [A], [Am], k=1)
+        self.knn_close = KNN([A], [Am], [1], [C], [Cm], k=1)
 
     def test_Hausdorff_distance(self):
         """vertaa laskettua Hausdorffin etäisyyttä manuaalisesti laskettuun"""
