@@ -18,8 +18,8 @@ class SetParamView:
         self._datahandler = datahandler
         self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
-        print(self._datahandler)
-        print(self._datahandler.filter_value)
+#        print(self._datahandler)
+#        print(self._datahandler.filter_value)
 #        self._mnist = mnist
 
         self._initialize()
@@ -38,7 +38,7 @@ class SetParamView:
         test_data_start_label.grid(padx=5, pady=5, sticky=constants.W)
         self._test_data_start_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
-        test_data_end_label = ttk.Label(master=self._frame, text="Testidatan loppuindeksi (0-9999)")
+        test_data_end_label = ttk.Label(master=self._frame, text="Testidatan loppuindeksi (1-10000)")
         self._test_data_end_entry = ttk.Entry(master=self._frame)
         test_data_end_label.grid(padx=5, pady=5, sticky=constants.W)
         self._test_data_end_entry.grid(padx=5, pady=5, sticky=constants.EW)
@@ -48,7 +48,7 @@ class SetParamView:
         train_data_start_label.grid(padx=5, pady=5, sticky=constants.W)
         self._train_data_start_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
-        train_data_end_label = ttk.Label(master=self._frame, text="Harjoitusdatan loppuindeksi (0-59999)")
+        train_data_end_label = ttk.Label(master=self._frame, text="Harjoitusdatan loppuindeksi (1-60000)")
         self._train_data_end_entry = ttk.Entry(master=self._frame)
         train_data_end_label.grid(padx=5, pady=5, sticky=constants.W)
         self._train_data_end_entry.grid(padx=5, pady=5, sticky=constants.EW)    
@@ -71,10 +71,7 @@ class SetParamView:
 
         self._message.set("")
         self._hide_message()
-        print("parameters")
         test_start_input = self._test_data_start_entry.get()
-        print("tähän?")
-        print(test_start_input)
         if not test_start_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()
@@ -85,8 +82,6 @@ class SetParamView:
             self._test_index_start = int(test_start_input)
 
         test_end_input = self._test_data_end_entry.get()
-        print("test end")
-        print(test_end_input)
         if not test_end_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()            
@@ -101,8 +96,7 @@ class SetParamView:
 
 
         train_start_input = self._train_data_start_entry.get()
-        print("train start")
-        print(train_start_input)
+
         if not train_start_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()            
@@ -113,28 +107,19 @@ class SetParamView:
             self._train_index_start = int(train_start_input)
 
         train_end_input = self._train_data_end_entry.get()
-        print("train end")
-        print(train_end_input)
         if not train_end_input.isnumeric():
-            print("fail a")
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()            
         elif int(train_end_input)<0 or int(train_end_input)>59999:
-            print("fail b")
             self._show_message("arvo oltava väliltä 0-59999")
             self._clear_entry_fields()
         elif int(train_end_input) < int(train_start_input):
             self._show_message("loppuindeksin oltava suurempi kuin alkuindeksin")
-            print("fail c")
             self._clear_entry_fields()
         else:
             self._train_index_end = int(train_end_input)
-            print("ok")
-
 
         k = self._k_value_entry.get()
-        print("k")
-        print(k)
         if not k.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()               
@@ -145,8 +130,6 @@ class SetParamView:
             self._k_value = int(k)
         
         layers = self._layers_entry.get()
-        print("layers")
-        print(layers)
         if not layers.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()  
@@ -197,16 +180,12 @@ class SetParamView:
         txt6 = ttk.Label(master=self._frame,
                          text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
-        print(self._root)
+
 
     def _calculate_knn(self):
         self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
-        print("parametrit asettu ja knn initialisoitu")
-        print(self._datahandler.k)
-        print(self._datahandler.layers)
         self._datahandler.predict()
-        print(self._datahandler.evaluate())
         self._show_result_view()
 
     def _show_message(self, message):
@@ -227,8 +206,6 @@ class SetParamView:
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
-        print("SetParamView._initialize")
-        #print(self._handle_param)
 
         label = ttk.Label(master=self._frame, text="Parametrien asetus")
         label.grid(row=0, column=0)
@@ -256,12 +233,7 @@ class SetParamView:
             master=self._frame,
             text="Suorita laskenta annetuilla parametreilla",
             command=self._handle_result)
-#            command=self._handle_result)
         new_user_button.grid(padx=5, pady=5, sticky=constants.EW)
-
-
-  
-
 
         set_param_button = ttk.Button(
             master=self._frame,

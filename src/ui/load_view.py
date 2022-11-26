@@ -13,7 +13,7 @@ class LoadView:
         self._message_label = None
         self._filter_value = 128
         self._datahandler = datahandler
-        print(self._datahandler)
+    #   print(self._datahandler)
         self._initialize()
 
     def pack(self):
@@ -35,7 +35,7 @@ class LoadView:
         self._filter_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
     def _set_filter(self):
-        print("set filter function")
+       # print("set filter function")
         filter_value_input = self._filter_entry.get()
         if not filter_value_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
@@ -51,10 +51,10 @@ class LoadView:
 
 
     def _load(self):
-        print("load function functionality here")
-        print(self._datahandler.filter_value)
+     #   print("load function functionality here")
+     #   print(self._datahandler.filter_value)
         self._datahandler.set_filter(self._filter_value)
-        print(self._datahandler.filter_value)
+     #   print(self._datahandler.filter_value)
         self._datahandler.read_mnist()
         #print(mnist.Y_train[0])
         #lataustoiminnallisuus lisättävä tähän
@@ -68,8 +68,8 @@ class LoadView:
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
-        print("SetParamView._initialize")
-        print(self._handle_set_param)
+        #print("SetParamView._initialize")
+        #print(self._handle_set_param)
 
         label = ttk.Label(master=self._frame, text="MNIST datan lataus")
         label.grid(row=0, column=0)
