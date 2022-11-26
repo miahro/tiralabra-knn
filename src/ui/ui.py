@@ -20,6 +20,7 @@ class UI:
         self._current_view = None
         self._mnist = None
         self._datahandler = DataHandler()
+        print(self._datahandler)
 
 
     def start(self):
@@ -48,7 +49,8 @@ class UI:
         self._current_view = SetParamView(
         self._root, 
         self._handle_load,
-        self._handle_param,
+        self._handle_result,
+        self._show_result_view,
         self._datahandler
         #self._show_set_param_view
         )
@@ -67,7 +69,8 @@ class UI:
         self._hide_current_view()
         self._current_view = ResultView(
         self._root, 
-        self._handle_result
+        self._handle_set_param,
+        self._datahandler
         )              
         self._current_view.pack()
 
@@ -77,6 +80,7 @@ class UI:
         self._root, 
         self._handle_set_param,
         self._show_set_param_view,
+        self._show_result_view,
         self._datahandler
         )              
         self._current_view.pack()

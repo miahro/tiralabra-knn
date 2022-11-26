@@ -3,16 +3,17 @@ from datahandler import DataHandler
 from mnistdata import Mnistdata
 
 class LoadView:
-    def __init__(self, root, handle_set_param, show_set_param_view, datahandler):
+    def __init__(self, root, handle_set_param, show_set_param_view, show_result_view, datahandler):
         self._root = root
         self._handle_set_param = handle_set_param
         self._show_set_param_view = show_set_param_view
+        self._show_result_view = show_result_view
         self._frame = None
         self._message = None
         self._message_label = None
         self._filter_value = 128
         self._datahandler = datahandler
-
+        print(self._datahandler)
         self._initialize()
 
     def pack(self):

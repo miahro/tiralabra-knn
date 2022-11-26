@@ -2,19 +2,24 @@ from tkinter import ttk, constants, Label, StringVar
 from datahandler import datahandler
 
 class SetParamView:
-    def __init__(self, root, handle_load, handle_param, datahandler):
+    def __init__(self, root, handle_load, handle_result, show_result_view, datahandler):
         self._root = root
         self._handle_load = handle_load
-        self._handle_param = handle_param
+        self._handle_result = handle_result
+        self._show_result_view = show_result_view
         self._frame = None
 
-        self._test_index_start = 1
+        self._test_index_start = 0
         self._test_index_end = 1
         self._train_index_start = 0
         self._train_index_end = 100
         self._k_value = 3
         self._layers = 4 
         self._datahandler = datahandler
+        self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
+        self._datahandler.init_knn()
+        print(self._datahandler)
+        print(self._datahandler.filter_value)
 #        self._mnist = mnist
 
         self._initialize()
@@ -154,6 +159,11 @@ class SetParamView:
             error = False
 
         if not error:
+            self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
+            self._datahandler.init_knn()
+
+            
+
             self.destroy()
             self._initialize()
             self.pack()
@@ -189,7 +199,15 @@ class SetParamView:
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
         print(self._root)
 
-
+    def _calculate_knn(self):
+        self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
+        self._datahandler.init_knn()
+        print("parametrit asettu ja knn initialisoitu")
+        print(self._datahandler.k)
+        print(self._datahandler.layers)
+        self._datahandler.predict()
+        print(self._datahandler.evaluate())
+        self._show_result_view()
 
     def _show_message(self, message):
         self._message.set(message)
@@ -237,7 +255,8 @@ class SetParamView:
         new_user_button = ttk.Button(
             master=self._frame,
             text="Suorita laskenta annetuilla parametreilla",
-            command=self._handle_param)
+            command=self._handle_result)
+#            command=self._handle_result)
         new_user_button.grid(padx=5, pady=5, sticky=constants.EW)
 
 
