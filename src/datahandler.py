@@ -48,12 +48,7 @@ class DataHandler:
         self.X_test_matrix = self.mnist.X_test_matrix(start=self.test_index_start, end=self.test_index_end)
         self.Y_train = self.mnist.Y_train_labels(start=self.train_index_start, end=self.train_index_end)
         self.Y_test = self.mnist.Y_test_labels(start=self.test_index_start, end=self.test_index_end)
- #       temp_list = list_of_indices(square_dist_matrix(self.layers))
- #       point_list = temp_list[:]
-        point_list = [(1, 0), (0, 1), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1), (2, 0), (0, 2), (-2, 0), (0, -2), (-1, -2), (1, -2), (1, 2), (2, -1), (-2, -1), (-1, 2), (-2, 1), (2, 1), (2, -2), (-2, -2), (-2, 2), (2, 2), (0, 3), (0, -3), (-3, 0), (3, 0), (-3, 1), (1, 3), (3, 1), (-1, 3), (-1, -3), (3, -1), (-3, -1), (1, -3), (-2, 3), (-2, -3), (3, -2), (2, -3), (2, 3), (3, 2), (-3, 2), (-3, -2), (-4, 0), (0, 4), (4, 0), (0, -4), (4, 1), (-1, -4), (1, -4), (-1, 4), (4, -1), (-4, 1), (1, 4), (-4, -1), (-3, -3), (3, 3), (-3, 3), (3, -3), (4, -2), (-4, 2), (-2, -4), (2, -4), (-2, 4), (2, 4), (-4, -2), (4, 2), (-4, 3), (-3, 4), (-3, -4), (3, 4), (4, -3), (-4, -3), (3, -4), (4, 3), (-4, -4), (-4, 4), (4, -4), (4, 4)]
-
-#        point_list = list_of_indices(square_dist_matrix(self.layers))
-        self.knn = KNN(self.X_train_point_list, self.X_train_matrix, self.Y_train, self.X_test_point_list, self.X_test_matrix, point_list, self.k, self.layers)
+        self.knn = KNN(self.X_train_point_list, self.X_train_matrix, self.Y_train, self.X_test_point_list, self.X_test_matrix, self.k, self.layers)
 
 
     def predict(self):
@@ -72,7 +67,10 @@ class DataHandler:
             wrong_ind_orig_mnist = []
             for i in range(len(wrong_ind)):
                 wrong_ind_orig_mnist.append(wrong_ind[i]+self.test_index_start)
-            return {"Y-predicted": self.Y_predicted, "correct": len(self.Y_test)-len(wrong_ind), "wrong": len(wrong_ind), "wrong_ind": wrong_ind, "wrong_orig_mnist": wrong_ind_orig_mnist, "runtime": self.timer.result()}
+            wrong_nos = []
+            for i in range(len(wrong_ind)):
+                wrong_nos.append(self.Y_test[wrong_ind[i]])
+            return {"Y_test": self.Y_test, "Y_predicted": self.Y_predicted, "correct": len(self.Y_test)-len(wrong_ind), "wrong": len(wrong_ind), "wrong_ind": wrong_ind, "wrong_nos": wrong_nos, "wrong_orig_mnist": wrong_ind_orig_mnist, "runtime": self.timer.result()}
 
     def write_results_to_file(self):
         pass

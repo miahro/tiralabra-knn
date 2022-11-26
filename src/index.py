@@ -1,6 +1,5 @@
 """moduli sisältää pääohjelman"""
-import config
-from tkinter import Tk 
+from tkinter import Tk
 from ui.ui import UI
 
 
@@ -14,7 +13,6 @@ def main():
     ui_view.start()
 
     window.mainloop()
-
 
 if __name__ == "__main__":
     main()

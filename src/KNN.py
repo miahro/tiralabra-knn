@@ -2,13 +2,12 @@
 
 from heapq import heappush, heappop
 from collections import Counter
-from utils import euclidean, euclidean_dist_matrix, square_distance, square_dist_matrix
-#import math
-
+from utils import  square_distance, square_dist_matrix
+from arrays import SDM, PL
 
 class KNN:
     """"K:n lähimmän naapurin luokka sisältää myös funktion Hausdorffin etäisyyden laskemiseksi"""
-    def __init__(self, X_train_points, X_train_matrix, Y_train, X_test_points, X_test_matrix, point_list, k=3, layers=4):
+    def __init__(self, X_train_points, X_train_matrix, Y_train, X_test_points, X_test_matrix, k=3, layers=4):
         """konstruktori
         Args:   X_train_points: X train kuvat pistelistamuodossa
                 X_train_matrix: X train kuvat matriisina
@@ -24,19 +23,10 @@ class KNN:
         self.X_test_matrix = X_test_matrix
         self.n = len(self.X_test_points)
         self.m = len(self.X_train_points)
-        self.layers = layers 
-        self.edm = square_dist_matrix(layers=self.layers).tolist()
-#         self.edm = [[32, 25, 20, 17, 16, 17, 20, 25, 32],
-#  [25, 18, 13, 10,  9, 10, 13, 18, 25],
-#  [20, 13,  8,  5,  4,  5,  8, 13, 20],
-#  [17, 10,  5,  2,  1,  2,  5, 10, 17],
-#  [16,  9,  4,  1,  0,  1,  4,  9, 16],
-#  [17, 10,  5,  2,  1,  2,  5, 10, 17],
-#  [20, 13,  8,  5,  4,  5,  8, 13, 20],
-#  [25, 18, 13, 10,  9, 10, 13, 18, 25],
-#  [32, 25, 20, 17, 16, 17, 20, 25, 32]]
-
-        self.point_list = point_list
+        self.layers = layers
+        self.sdm = SDM[layers-1]
+        self.point_list = PL[layers-1]
+#        self.sdm = square_dist_matrix(layers)
 
     def predict(self):
         """KNN ennustamat ominaisuudet (numero 0-9)
@@ -90,15 +80,15 @@ class KNN:
                 sum_AB=0
                 for a in self.X_test_points[test_index]:
                     not_found = True
-                    if self.X_train_matrix[train_index][a[0]][a[1]]: 
+                    if self.X_train_matrix[train_index][a[0]][a[1]]:
                         continue
                     for close in self.point_list:
                         if close[0] + a[0 ]<0 or close[0]+ a[0]>27 or close[1] + a[1]<0 or close[1]+a[1]>27:
                             continue
                         if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                                sum_AB += self.edm[close[0]+self.layers][close[1]+self.layers]
-                                not_found = False
-                                break
+                            sum_AB += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                            not_found = False
+                            break
                     if not_found:
                         minimum = 1000000
                         for b in self.X_train_points[train_index]:
@@ -110,15 +100,15 @@ class KNN:
                 sum_BA=0
                 for b in self.X_train_points[train_index]:
                     not_found = True
-                    if self.X_test_matrix[test_index][b[0]][b[1]]: 
+                    if self.X_test_matrix[test_index][b[0]][b[1]]:
                         continue
                     for close in self.point_list:
                         if close[0] + b[0 ]<0 or close[0]+ b[0]>27 or close[1] + b[1]<0 or close[1]+b[1]>27:
                             continue
                         if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                                sum_BA += self.edm[close[0]+self.layers][close[1]+self.layers]
-                                not_found = False
-                                break
+                            sum_BA += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                            not_found = False
+                            break
                     if not_found:
                         minimum = 1000000
                         for a in self.X_test_points[test_index]:
@@ -148,44 +138,32 @@ class KNN:
 
         for a in self.X_test_points[test_index]:
             not_found = True
-            if self.X_train_matrix[train_index][a[0]][a[1]]: 
+            if self.X_train_matrix[train_index][a[0]][a[1]]:
                 continue
             for close in self.point_list:
                 if close[0] + a[0 ]<0 or close[0]+ a[0]>27 or close[1] + a[1]<0 or close[1]+a[1]>27:
                     continue
                 if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                        sum_AB += self.edm[close[0]+self.layers][close[1]+self.layers]
-                        not_found = False
-                        break
+                    sum_AB += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                    not_found = False
+                    break
 
             if not_found:
                 sum_AB += min([square_distance(a,b) for b in self.X_train_points[train_index]])
-         
-
 
         sum_BA=0
         for b in self.X_train_points[train_index]:
             not_found = True
-            if self.X_test_matrix[test_index][b[0]][b[1]]: 
+            if self.X_test_matrix[test_index][b[0]][b[1]]:
                 continue
             for close in self.point_list:
                 if close[0] + b[0 ]<0 or close[0]+ b[0]>27 or close[1] + b[1]<0 or close[1]+b[1]>27:
                     continue
                 if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                        sum_BA += self.edm[close[0]+self.layers][close[1]+self.layers]
-                        not_found = False
-                        break
+                    sum_BA += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                    not_found = False
+                    break
             if not_found:
                 sum_BA += min([square_distance(b,a) for a in self.X_test_points[test_index]])
 
         return sum_AB+sum_BA
-
-    # #@staticmethod
-    # def dist_point_set_all(self,a,B):
-    #     """pisteen ja pistejoukon minimietäisyyden laskenta toistaiseksi omana funktionaan"""
-    #     minimum = 1000000
-    #     for b in B:
-    #         dist = euclidean(a,b)
-    #         if minimum > dist:
-    #             minimum = dist
-    #     return minimum
