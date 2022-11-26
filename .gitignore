@@ -9,6 +9,8 @@ src/tests/directedhausdorff_test.py
 src/tests/undirectedhausdorff_test.py
 src/tests/read_mnist_test.py
 data/
+ToDo
+main.py
 
 
 __pycache__
