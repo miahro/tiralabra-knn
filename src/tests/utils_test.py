@@ -1,11 +1,13 @@
 import unittest
-from math import sqrt 
+from math import sqrt
 from utils import euclidean, euclidean_dist_matrix, square_distance, square_dist_matrix, list_of_indices
 
+
 def test_euclidean():
-    assert euclidean((0,0), (1,1)) - sqrt(2) <1e-10
-    assert euclidean((0,0), (1,0)) - 1 <1e-10
-    assert euclidean((1,1), (-1, -1)) -sqrt(8) < 1e-10
+    assert euclidean((0, 0), (1, 1)) - sqrt(2) < 1e-10
+    assert euclidean((0, 0), (1, 0)) - 1 < 1e-10
+    assert euclidean((1, 1), (-1, -1)) - sqrt(8) < 1e-10
+
 
 def test_euclidean_dist_matrix():
     test_matrix = euclidean_dist_matrix(3)
@@ -18,9 +20,10 @@ def test_euclidean_dist_matrix():
 
 
 def test_square_dist():
-    assert square_distance((0,0), (1,1)) == 2
-    assert square_distance((0,0), (1,0)) == 1
-    assert square_distance((1,1), (-1, -1)) == 8
+    assert square_distance((0, 0), (1, 1)) == 2
+    assert square_distance((0, 0), (1, 0)) == 1
+    assert square_distance((1, 1), (-1, -1)) == 8
+
 
 def test_square_dist_matrix():
     test_matrix = square_dist_matrix(3)
@@ -31,7 +34,8 @@ def test_square_dist_matrix():
     assert test_matrix[1][6] == 13
     assert test_matrix[6][2] == 10
 
+
 def test_list_of_indices():
     test_matrix = square_dist_matrix(3)
     lst = list_of_indices(test_matrix)
-    assert lst[0] in [(1,0), (0,1), (-1,0), (0,-1)]
+    assert lst[0] in [(1, 0), (0, 1), (-1, 0), (0, -1)]
