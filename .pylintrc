@@ -1,5 +1,5 @@
 [MASTER]
-ignore=timer.py,visualize.py,main.py,src/ui,src/tests
+ignore=main.py,src/ui,src/tests
 
 [MESSAGES CONTROL]
 
