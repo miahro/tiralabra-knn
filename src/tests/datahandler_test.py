@@ -37,17 +37,16 @@ class TestDataHandler(unittest.TestCase):
         self.assertEqual(self.datahandler.knn.k, 9)
         self.assertEqual(self.datahandler.knn.layers, 6)
 
-
     def test_predict(self):
-        self.datahandler.read_mnist()        
-        self.datahandler.set_parameters(0,2,0,10, k=1, layers=1)
+        self.datahandler.read_mnist()
+        self.datahandler.set_parameters(0, 2, 0, 10, k=1, layers=1)
         self.datahandler.init_knn()
         self.datahandler.predict()
         self.assertEqual(len(self.datahandler.Y_predicted), 2)
 
     def test_evaluate(self):
-        self.datahandler.read_mnist()        
-        self.datahandler.set_parameters(0,1,0,10, k=1, layers=1)
+        self.datahandler.read_mnist()
+        self.datahandler.set_parameters(0, 1, 0, 10, k=1, layers=1)
         self.datahandler.init_knn()
         self.datahandler.predict()
 

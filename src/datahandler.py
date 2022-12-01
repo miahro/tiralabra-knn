@@ -106,7 +106,7 @@ class DataHandler:
 
     def write_results_to_file(self):
         """tallentaa KNN:n tulokset .csv tiedostoon"""
-        print(OUTPUTFILEPATH)
+        # print(OUTPUTFILEPATH)
         result = self.evaluate()
         keys = result.keys()
         if not os.path.isfile(OUTPUTFILEPATH):

@@ -9,8 +9,8 @@ from arrays import SDM, PL
 class KNN:
     """"K:n lähimmän naapurin luokka sisältää myös funktion Hausdorffin etäisyyden laskemiseksi"""
 
-    def __init__(self, X_train_points, X_train_matrix, Y_train,\
-                X_test_points, X_test_matrix, k=3, layers=4):
+    def __init__(self, X_train_points, X_train_matrix, Y_train,
+                 X_test_points, X_test_matrix, k=3, layers=4):
         """konstruktori
         Args:   X_train_points: X train kuvat pistelistamuodossa
                 X_train_matrix: X train kuvat matriisina
@@ -86,8 +86,8 @@ class KNN:
                     if self.X_train_matrix[train_index][a[0]][a[1]]:
                         continue
                     for close in self.point_list:
-                        if (close[0] + a[0] < 0 or close[0] + a[0] > 27 \
-                            or close[1] + a[1] < 0 or close[1]+a[1] > 27):
+                        if (close[0] + a[0] < 0 or close[0] + a[0] > 27
+                                or close[1] + a[1] < 0 or close[1]+a[1] > 27):
                             continue
                         if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
                             sum_AB += self.sdm[close[0] +
@@ -108,8 +108,8 @@ class KNN:
                     if self.X_test_matrix[test_index][b[0]][b[1]]:
                         continue
                     for close in self.point_list:
-                        if (close[0] + b[0] < 0 or close[0] + b[0] > 27 \
-                            or close[1] + b[1] < 0 or close[1]+b[1] > 27):
+                        if (close[0] + b[0] < 0 or close[0] + b[0] > 27
+                                or close[1] + b[1] < 0 or close[1]+b[1] > 27):
                             continue
                         if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
                             sum_BA += self.sdm[close[0] +
@@ -146,8 +146,8 @@ class KNN:
             if self.X_train_matrix[train_index][a[0]][a[1]]:
                 continue
             for close in self.point_list:
-                if (close[0] + a[0] < 0 or close[0] + a[0] > 27\
-                    or close[1] + a[1] < 0 or close[1]+a[1] > 27):
+                if (close[0] + a[0] < 0 or close[0] + a[0] > 27
+                        or close[1] + a[1] < 0 or close[1]+a[1] > 27):
                     continue
                 if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
                     sum_AB += self.sdm[close[0] +
@@ -165,8 +165,8 @@ class KNN:
             if self.X_test_matrix[test_index][b[0]][b[1]]:
                 continue
             for close in self.point_list:
-                if (close[0] + b[0] < 0 or close[0] + b[0] > 27\
-                    or close[1] + b[1] < 0 or close[1]+b[1] > 27):
+                if (close[0] + b[0] < 0 or close[0] + b[0] > 27
+                        or close[1] + b[1] < 0 or close[1]+b[1] > 27):
                     continue
                 if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
                     sum_BA += self.sdm[close[0] +

@@ -4,6 +4,7 @@ import time
 
 class Timer:
     """luokka suoritusajan mittaamista varten"""
+
     def __init__(self, cputime=False):
         """konstruktori Timer-oliolle
         Args cputime: True/False (default False)

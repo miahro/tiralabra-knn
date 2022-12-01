@@ -20,7 +20,7 @@ def euclidean_dist_matrix(layers):
     """taulukkoon valmiiksi laskettuna keskipisteestä
         euklidiset etäisyydet layers kerrokselle"""
     center = (layers, layers)
-    dist_array = np.empty([2*layers+1, 2*layers+1], dtype='int8')
+    dist_array = np.empty([2*layers+1, 2*layers+1], dtype='int16')
     for i in range(0, dist_array.shape[0]):
         for j in range(0, dist_array.shape[1]):
             dist_array[i][j] = int(euclidean(center, (i, j)))
@@ -31,10 +31,14 @@ def square_dist_matrix(layers):
     """taulukkoon valmiiksi laskettuna keskipisteestä
         neliölliset etäisyydet layers kerrokselle"""
     center = (layers, layers)
-    dist_array = np.empty([2*layers+1, 2*layers+1], dtype='int8')
+    dist_array = np.empty([2*layers+1, 2*layers+1], dtype='int16')
     for i in range(0, dist_array.shape[0]):
         for j in range(0, dist_array.shape[1]):
-            dist_array[i][j] = int(square_distance(center, (i, j)))
+            dist_array[i][j] = (square_distance(center, (i, j)))
+            if dist_array[i][j] < 0:
+                print(dist_array[i][j])
+                print(
+                    f"center: {center}, i {i}, j{j}, square distance {square_distance(center, (i,j))}, {int(square_distance(center, (i,j)))}")
     return dist_array
 
 
@@ -46,7 +50,7 @@ def list_of_indices(distance_array):
     no_of_points = ind[0].shape[0]
     ones = np.ones((no_of_points, ))
     ind = ind - center*ones
-    ind = ind.astype('int8')
+
+    ind = ind.astype('int16')
     lst = [tuple(x) for x in zip(ind[0], ind[1])]
-    # lst[0] on aina (0,0). Tätä ei tarvita, ja aiheuttaisi turhaa laskentaa
     return lst[1:]
