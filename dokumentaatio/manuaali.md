@@ -72,4 +72,4 @@ Ohjelma sisältää hyvin yksinkertaisen käyttöliittymän. Näkymissä voi lii
 
 ![results](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/result_view.png)
 
-![view_test_image]()
+![view_test_image](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/view_test_image.png)
