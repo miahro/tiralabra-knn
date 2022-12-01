@@ -1,5 +1,7 @@
+"""moduli sisältää vakioarvoja kuten
+datan www-osoitteet, data ja tulostiedoston polut
+sekä oletusparametrit käyttöliittymän parametrinäkymää varten"""
 import os
-#from dotenv import load_dotenv
 
 directory = os.path.dirname(__file__)
 

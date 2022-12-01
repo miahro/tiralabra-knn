@@ -20,19 +20,18 @@ class ResultView:
         self._datahandler.predict()
         self._result = self._datahandler.evaluate()
 
-
     def _plot(self):
         ind = self._ind_choice_entry.get()
         if ind.isdigit():
             ind = int(ind)
             if ind < len(self._datahandler.X_test_matrix):
                 plt.imshow(self._datahandler.X_test_matrix[ind])
-                plt.get_current_fig_manager().set_window_title(f"Numero: {self._datahandler.Y_test[ind]}")
+                plt.get_current_fig_manager().set_window_title(
+                    f"Numero: {self._datahandler.Y_test[ind]}")
                 plt.show()
 
     def _save(self):
         self._datahandler.write_results_to_file()
-
 
     def _view_result_fields(self):
 
@@ -42,7 +41,8 @@ class ResultView:
 
         correct_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['correct']}")
-        correct_val_label.grid(padx=5, pady=5, row=1, column=1, sticky=constants.W)
+        correct_val_label.grid(padx=5, pady=5, row=1,
+                               column=1, sticky=constants.W)
 
         wrong_label = ttk.Label(
             master=self._frame, text=f"Väärin tunnistettuja: ")
@@ -50,42 +50,47 @@ class ResultView:
 
         wrong_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['wrong']}")
-        wrong_val_label.grid(padx=5, pady=5, row=3, column=1, sticky=constants.W)
-
+        wrong_val_label.grid(padx=5, pady=5, row=3,
+                             column=1, sticky=constants.W)
 
         time_label = ttk.Label(
             master=self._frame, text=f"Suoritusaika sekuntia: ")
         time_label.grid(padx=5, pady=5, row=5, column=0, sticky=constants.W)
 
-
         time_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['runtime']}")
-        time_val_label.grid(padx=5, pady=5, row=5, column=1, sticky=constants.W)
+        time_val_label.grid(padx=5, pady=5, row=5,
+                            column=1, sticky=constants.W)
 
         wrong_ind_label = ttk.Label(
             master=self._frame, text=f"Väärien indeksit: ")
-        wrong_ind_label.grid(padx=5, pady=5, row=7, column=0, sticky=constants.W)
-
+        wrong_ind_label.grid(padx=5, pady=5, row=7,
+                             column=0, sticky=constants.W)
 
         wrong_val_ind_label = ttk.Label(
             master=self._frame, text=f"{self._result['wrong_ind']}")
-        wrong_val_ind_label.grid(padx=5, pady=5, row=7, column=1, sticky=constants.W)
+        wrong_val_ind_label.grid(
+            padx=5, pady=5, row=7, column=1, sticky=constants.W)
 
         wrong_ind_mnist_label = ttk.Label(
             master=self._frame, text=f"Väärien indeksit alkuperäisessä MNIST datassa: ")
-        wrong_ind_mnist_label.grid(padx=5, pady=5, row=9, column=0, sticky=constants.W)
+        wrong_ind_mnist_label.grid(
+            padx=5, pady=5, row=9, column=0, sticky=constants.W)
 
         wrong_val_ind_mnist_label = ttk.Label(
             master=self._frame, text=f"{self._result['wrong_orig_mnist']}")
-        wrong_val_ind_mnist_label.grid(padx=5, pady=5, row=9, column=1, sticky=constants.W)
+        wrong_val_ind_mnist_label.grid(
+            padx=5, pady=5, row=9, column=1, sticky=constants.W)
 
         wrong_nos_label = ttk.Label(
             master=self._frame, text=f"Väärin tunnistetut numerot: ")
-        wrong_nos_label.grid(padx=5, pady=5, row=11, column=0, sticky=constants.W)
+        wrong_nos_label.grid(padx=5, pady=5, row=11,
+                             column=0, sticky=constants.W)
 
         wrong_val_nos_label = ttk.Label(
             master=self._frame, text=f"{self._result['wrong_nos']}")
-        wrong_val_nos_label.grid(padx=5, pady=5, row=11, column=1, sticky=constants.W)
+        wrong_val_nos_label.grid(
+            padx=5, pady=5, row=11, column=1, sticky=constants.W)
 
         predY_label = ttk.Label(
             master=self._frame, text=f"Ennustetut numerot (50 ensimmäistä): ")
@@ -93,7 +98,8 @@ class ResultView:
 
         predY_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['Y_predicted'][0:50]}")
-        predY_val_label.grid(padx=5, pady=5, row=13, column=1, sticky=constants.W)
+        predY_val_label.grid(padx=5, pady=5, row=13,
+                             column=1, sticky=constants.W)
 
         testY_label = ttk.Label(
             master=self._frame, text=f"Oikeat numerot (50 ensimmäistä): ")
@@ -101,7 +107,8 @@ class ResultView:
 
         testY_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['Y_test'][0:50]}")
-        testY_val_label.grid(padx=5, pady=5, row=15, column=1, sticky=constants.W)
+        testY_val_label.grid(padx=5, pady=5, row=15,
+                             column=1, sticky=constants.W)
 
         filter_label = ttk.Label(
             master=self._frame, text=f"Harmaasuodattimen arvo: ")
@@ -109,7 +116,8 @@ class ResultView:
 
         filter_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['filter']}")
-        filter_val_label.grid(padx=5, pady=5, row=17, column=1, sticky=constants.W)
+        filter_val_label.grid(padx=5, pady=5, row=17,
+                              column=1, sticky=constants.W)
 
         k_label = ttk.Label(
             master=self._frame, text=f"k-arvo: ")
@@ -125,9 +133,8 @@ class ResultView:
 
         layers_val_label = ttk.Label(
             master=self._frame, text=f"{self._result['layers']}")
-        layers_val_label.grid(padx=5, pady=5, row=21, column=1, sticky=constants.W)
-
-
+        layers_val_label.grid(padx=5, pady=5, row=21,
+                              column=1, sticky=constants.W)
 
     def _initialize(self):
         self._calculate_knn()
@@ -141,7 +148,8 @@ class ResultView:
             master=self._frame, text="Anna näytettävän kuvan indeksi (testikuva): ")
         self._ind_choice_entry = ttk.Entry(master=self._frame)
         ind_choice_label.grid(padx=5, pady=5, column=0, sticky=constants.W)
-        self._ind_choice_entry.grid(padx=5, pady=5, column=1, sticky=constants.EW)
+        self._ind_choice_entry.grid(
+            padx=5, pady=5, column=1, sticky=constants.EW)
 
         matplot_button = ttk.Button(
             master=self._frame,
@@ -158,7 +166,6 @@ class ResultView:
         )
 
         save_button.grid(padx=5, pady=5, sticky=constants.EW)
-
 
         set_param_button = ttk.Button(
             master=self._frame,
