@@ -1,5 +1,4 @@
 #leave out for now, needs to be added later
-src/timer.py
 src/visualize.py
 src/hausdorff.py
 src/read_mnist.py
@@ -9,9 +8,10 @@ src/tests/directedhausdorff_test.py
 src/tests/undirectedhausdorff_test.py
 src/tests/read_mnist_test.py
 data/
-ToDo
+ToDo.md
 main.py
-
+mnist_get_data.sh
+src/ui/param_view.py
 
 __pycache__
 ownnotes.md
