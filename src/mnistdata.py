@@ -7,7 +7,6 @@ import numpy as np
 from config import TRAIN_X_URL, TRAIN_Y_URL, TEST_X_URL, TEST_Y_URL, DATAFILEPATH
 
 
-
 class Mnistdata:
     """Luokka MNIST datan lukemista varten
     lataa ja lukee MNIST datan
@@ -28,11 +27,13 @@ class Mnistdata:
         self.X_train = X_train_filt_temp.tolist()
 
 #        self.X_train = list(X_train_filt_temp)
-        self.X_train_point_list = [np.transpose(np.nonzero(x)).tolist() for x in self.X_train]
+        self.X_train_point_list = [np.transpose(
+            np.nonzero(x)).tolist() for x in self.X_train]
         X_test_filt_temp = X_test_temp >= filter_value
 #        self.X_test = list(X_test_filt_temp)
         self.X_test = X_test_filt_temp.tolist()
-        self.X_test_point_list = [np.transpose(np.nonzero(x)).tolist() for x in self.X_test]
+        self.X_test_point_list = [np.transpose(
+            np.nonzero(x)).tolist() for x in self.X_test]
 
     @staticmethod
     def download(url):
@@ -40,7 +41,8 @@ class Mnistdata:
         jos ladattu lukee paikallisesta datatiedostosta
         palauttaa kuvat numpy arrayna
         """
-        fp = os.path.join(DATAFILEPATH, hashlib.md5(url.encode('utf-8')).hexdigest())
+        fp = os.path.join(DATAFILEPATH, hashlib.md5(
+            url.encode('utf-8')).hexdigest())
         if os.path.isfile(fp):
             with open(fp, "rb") as f:
                 data = f.read()
