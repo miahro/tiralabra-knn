@@ -35,10 +35,6 @@ def square_dist_matrix(layers):
     for i in range(0, dist_array.shape[0]):
         for j in range(0, dist_array.shape[1]):
             dist_array[i][j] = (square_distance(center, (i, j)))
-            if dist_array[i][j] < 0:
-                print(dist_array[i][j])
-                print(
-                    f"center: {center}, i {i}, j{j}, square distance {square_distance(center, (i,j))}, {int(square_distance(center, (i,j)))}")
     return dist_array
 
 
