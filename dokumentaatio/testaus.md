@@ -14,6 +14,9 @@
 ![Testikattavuusraportti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/TestCoverageReport.png)
 
 ## Suorituskykytestaus
+Ohjelman suorituskykyä on testattu erillisellä ohjelmalla (yksinkertainen python main-ohjelma, joka vain luuppaa datahandler oliota eri parametreillä)
+
+
 Ohjelman suorituskykyä on testattu manuaalisesti, eikä tässä vaiheessa kovin järjestelmällisesti. 
 - laskenta on edelleen liian hidas. KNN:n ajaminen yhdellä testinumerolla ja 60 000 opetusdatapisteellä kestään noin 50 sekuntia. Tämä tarkoittaisi, että koko 10 000 testidatan ajaminen kestäisi 6 päivää. 
 - KNN:n parametreja (johtuen osittain hitaasta laskennasta) eikä eri vaihtoehtoja etäisyysmitoiksi ei ole vielä järjestelmällisesti testattu. Kuitenkin jo alustavien testien perusteella on selvää, että numeroiden tunnistus toimii vähintään tyydyttävästi jopa kohtalaisen pienillä opetusdatajoukoilla. Esimerkiksi:

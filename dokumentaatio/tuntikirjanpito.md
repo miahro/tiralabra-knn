@@ -23,7 +23,9 @@ Tiralabra käytetyt tunnit.
 | 4 | 24.11. | 8    | toteutettu Datahandler luokka, aloitettu käyttöliittymää |
 | 4 | 25.11. | 8    | jatkettu käyttöliittymää, kirjoitettu yksikkötestejä, testattu suorituskykyä |
 | 4 | 26.11. | 6    | jatkettu käyttöliittymää, testattu, päivitetty dokumentaatiota |
-
+suorituskykyä |
+| 5 | 30.11. | 4    | yritetty löytää nopeuden pullonkaula / ongelma |
+| 5 | 1.12. |  8    | yksikkötestejä, bugikorjauksia, dokumentaatiota, koodin laadun parantamista, käyttöliittymän patantaminen |
 
 **Yhteensä**
 | viikko | aika |

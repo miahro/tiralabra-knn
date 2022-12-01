@@ -40,8 +40,13 @@ ks [manuaali](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/ma
 ### Tietojen tallennus
 Ohjelma lukee MNIST tietokannan http://yann.lecun.com/exdb/mnist/ ja tallentaa paikallisiin tiedostoihin. 
 
-Laskennan tuloksia ei toistaiseksi tallenneta. Tämä ominaisuus lisätään myöhemmin. 
+Laskennan tulokset tallennetaan .csv tiedostoon
 
+
+### Käytetty tietorakenne
+MNIST numeroiden luvun yhteydessä numerot tallennetaan seuraavaan tietorakenteeseen:
+- 28 x 28 boolean matriisiin (False=valkoinen piste, True=musta piste)
+- mustat pisteet lisäksy (x,y) pistelistana
 
 ### Algoritmien kuvaus
 MNIST numerot pyritään tunnistamaan k:n lähimmän naapurin menetelmällä (KNN), käyttäen modifioituja Hausdorf-etäisyyksiä. Hausdorff etäisyyksien laskentaa on kuvattu lähteissä 1-3. 
@@ -52,13 +57,23 @@ Ohjelman (tällä hetkellä) käyttämä etäisyysmitta on lähinnä lähteen [3
 
 KNN algoritmi on toteutettu minimikekoa käyttäen.
 
+Ohjelman aikavaativuuden määräävä tekijä on etäisyyksien laskeminen, koska jokaisen testinumeron etäisyys jokaiseen opetusnumeroon pitää laskea joka tapauksessa, ja tämä tarkoittaa, että jokaisen testinumeron jokaisen pisteen minimietäisyys käsiteltävästä opetusnumerosta pitää löytää. Toistoja on siis paljon: 10k testinumeroa, 60k opetusnumeroa, joissa jokaisessa luokkaa 100kpl pisteitä, riippuen käytetystä harmaafiltteristä). Etäisyyslaskentaa on siis pyritty optimoimaan:
+- tämän vuoksi on vältetty funktiokutsuja, ja kaikki laskenta on KNN luokan prediction funktiossa. Funkio on näin liian pitkä, ja huonoa Python-tyyliä, mutta tämä on välttämätöntä tehokkuuden kannalta
+- kuten yllä mainittu käytetty neliöllistä etäisyyttä euklidisen etäisyyden sijaan. KNN:ssä vain etäisyyksien järjestyksellä on väliä, jolloin tämä tuottaa saman tuloksen ilman neliöjuuren laskentaa
+- pisteen ja pistejoukon etäisyyden laskennan nopeus on ratkaisevaa, tämän nopeuttamiseksi algoritmi toimii kolmessa vaiheessa:
+
+1. Ensin tarkisteaan boolean matriisista, onko pistejoukossa päällekkäinen piste. Jos on, minimietäisyys on nolla, ja suoritus lopetetaan tähän. Muuten siirrytään kohtaan 2.
+2. Seuraavaksi käydään läpi pistejoukon "lähellä" olevia pisteitä. 
+- "lähellä" on tässä suhteellinen käsite, ja sitä kuvataan parametrilla "kerrokset" (koodissa layers). 
+- riippuen kerrosten määrästä, on laskettu valmmiksi matriiseihin neliöllisiä etäisyyksiä pistettä lähellä olevista pisteistä. Nämä käydään läpi esijärjestetyssä listan mukaan. Lista esijärjestetty etäisyyksien minimien mukaan. Jos löydetään piste, etäisyys poimitaan valmiista matriisista, ja suoritus lopetetaan tähän. Jos pistettä ei löytynyt, siirrytään kohtaan 3. 
+3. Tässä lasketaan raa'asti neliölliset etäisyydet pisteestä pistejoukon jokaiseen pisteeseen, ja haetaan näistä minimi
 
 
 ## Saavutetut aika- ja tilavaativuudet
 - kesken
 
 ## Puutteet ja parannusmahdollisuudet
-
+- laskennan hitaus on suurin ongelma
 
 ## Lähteet
 [1]Giuseppe Bonaccorso. Machine learning algorithms : popular algorithms for data science and machine learning. eng. Second edition. Birmingham ;
