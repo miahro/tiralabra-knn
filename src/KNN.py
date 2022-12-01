@@ -2,11 +2,13 @@
 
 from heapq import heappush, heappop
 from collections import Counter
-from utils import  square_distance, square_dist_matrix
+from utils import square_distance, square_dist_matrix
 from arrays import SDM, PL
+
 
 class KNN:
     """"K:n lähimmän naapurin luokka sisältää myös funktion Hausdorffin etäisyyden laskemiseksi"""
+
     def __init__(self, X_train_points, X_train_matrix, Y_train, X_test_points, X_test_matrix, k=3, layers=4):
         """konstruktori
         Args:   X_train_points: X train kuvat pistelistamuodossa
@@ -36,11 +38,11 @@ class KNN:
         """
         Y_pred = []
         for i in range(self.n):
-            distance=[]
+            distance = []
             for j in range(self.m):
                 d = self.hausdorff_distance(i, j)
                 distance.append((d, self.Y_train[j]))
-            distance=sorted(distance)
+            distance = sorted(distance)
             neightbors = []
             for item in range(self.k):
                 neightbors.append(distance[item][1])
@@ -56,10 +58,10 @@ class KNN:
         """
         Y_pred = []
         for i in range(self.n):
-            heap=[]
+            heap = []
             for j in range(self.m):
                 d = self.hausdorff_distance(i, j)
-                heappush(heap, (d,j))
+                heappush(heap, (d, j))
             neighbors = []
             for _ in range(self.k):
                 h = heappop(heap)
@@ -75,18 +77,19 @@ class KNN:
         """
         Y_pred = []
         for test_index in range(self.n):
-            heap=[]
+            heap = []
             for train_index in range(self.m):
-                sum_AB=0
+                sum_AB = 0
                 for a in self.X_test_points[test_index]:
                     not_found = True
                     if self.X_train_matrix[train_index][a[0]][a[1]]:
                         continue
                     for close in self.point_list:
-                        if close[0] + a[0 ]<0 or close[0]+ a[0]>27 or close[1] + a[1]<0 or close[1]+a[1]>27:
+                        if close[0] + a[0] < 0 or close[0] + a[0] > 27 or close[1] + a[1] < 0 or close[1]+a[1] > 27:
                             continue
                         if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                            sum_AB += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                            sum_AB += self.sdm[close[0] +
+                                               self.layers][close[1]+self.layers]
                             not_found = False
                             break
                     if not_found:
@@ -97,16 +100,17 @@ class KNN:
                                 minimum = temp
                         sum_AB += minimum
 
-                sum_BA=0
+                sum_BA = 0
                 for b in self.X_train_points[train_index]:
                     not_found = True
                     if self.X_test_matrix[test_index][b[0]][b[1]]:
                         continue
                     for close in self.point_list:
-                        if close[0] + b[0 ]<0 or close[0]+ b[0]>27 or close[1] + b[1]<0 or close[1]+b[1]>27:
+                        if close[0] + b[0] < 0 or close[0] + b[0] > 27 or close[1] + b[1] < 0 or close[1]+b[1] > 27:
                             continue
                         if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                            sum_BA += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                            sum_BA += self.sdm[close[0] +
+                                               self.layers][close[1]+self.layers]
                             not_found = False
                             break
                     if not_found:
@@ -118,7 +122,7 @@ class KNN:
                         sum_BA += minimum
 
                 d = sum_AB + sum_BA
-                heappush(heap, (d,train_index))
+                heappush(heap, (d, train_index))
             neighbors = []
             for _ in range(self.k):
                 h = heappop(heap)
@@ -127,43 +131,45 @@ class KNN:
             Y_pred.append(counter[0])
         return Y_pred
 
-
-
     def hausdorff_distance(self, test_index, train_index):
         """Hausdorf etäisyys
             suunnattu funktio d6b (eli painottamaton summa)
             ja tässä vaiheessa suuntaamattoman etäisyyden funktio summana d(A,B)+d(B,A)
         """
-        sum_AB=0
+        sum_AB = 0
 
         for a in self.X_test_points[test_index]:
             not_found = True
             if self.X_train_matrix[train_index][a[0]][a[1]]:
                 continue
             for close in self.point_list:
-                if close[0] + a[0 ]<0 or close[0]+ a[0]>27 or close[1] + a[1]<0 or close[1]+a[1]>27:
+                if close[0] + a[0] < 0 or close[0] + a[0] > 27 or close[1] + a[1] < 0 or close[1]+a[1] > 27:
                     continue
                 if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                    sum_AB += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                    sum_AB += self.sdm[close[0] +
+                                       self.layers][close[1]+self.layers]
                     not_found = False
                     break
 
             if not_found:
-                sum_AB += min([square_distance(a,b) for b in self.X_train_points[train_index]])
+                sum_AB += min([square_distance(a, b)
+                              for b in self.X_train_points[train_index]])
 
-        sum_BA=0
+        sum_BA = 0
         for b in self.X_train_points[train_index]:
             not_found = True
             if self.X_test_matrix[test_index][b[0]][b[1]]:
                 continue
             for close in self.point_list:
-                if close[0] + b[0 ]<0 or close[0]+ b[0]>27 or close[1] + b[1]<0 or close[1]+b[1]>27:
+                if close[0] + b[0] < 0 or close[0] + b[0] > 27 or close[1] + b[1] < 0 or close[1]+b[1] > 27:
                     continue
                 if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                    sum_BA += self.sdm[close[0]+self.layers][close[1]+self.layers]
+                    sum_BA += self.sdm[close[0] +
+                                       self.layers][close[1]+self.layers]
                     not_found = False
                     break
             if not_found:
-                sum_BA += min([square_distance(b,a) for a in self.X_test_points[test_index]])
+                sum_BA += min([square_distance(b, a)
+                              for a in self.X_test_points[test_index]])
 
         return sum_AB+sum_BA
