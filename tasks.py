@@ -22,4 +22,4 @@ def test(ctx):
 
 @task
 def format(ctx):
-    ctx.run("autopep8 --in-place --recursive src")
+    ctx.run("autopep8 --in-place --recursive src --max-line-length 100")
