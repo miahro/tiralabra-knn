@@ -1,5 +1,7 @@
 from tkinter import ttk, constants, Label, StringVar
 from datahandler import datahandler
+from config import parameters
+
 
 class SetParamView:
     def __init__(self, root, handle_load, handle_result, show_result_view, datahandler):
@@ -9,18 +11,25 @@ class SetParamView:
         self._show_result_view = show_result_view
         self._frame = None
 
-        self._test_index_start = 0
-        self._test_index_end = 1
-        self._train_index_start = 0
-        self._train_index_end = 100
-        self._k_value = 3
-        self._layers = 4 
         self._datahandler = datahandler
-        self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
+        if self._datahandler.initialized:
+            self._test_index_start = self._datahandler.test_index_start
+            self._test_index_end = self._datahandler.test_index_end
+            self._train_index_start = self._datahandler.train_index_start
+            self._train_index_end = self._datahandler.train_index_end
+            self._k_value = self._datahandler.k
+            self._layers = self._datahandler.layers
+        else:
+            self._test_index_start = parameters["test_index_start"]
+            self._test_index_end = parameters["test_index_end"]
+            self._train_index_start = parameters["train_index_start"]
+            self._train_index_end = parameters["train_index_end"]
+            self._k_value = parameters["k_value"]
+            self._layers = parameters["layers"]
+
+        self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
+                                         self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
-#        print(self._datahandler)
-#        print(self._datahandler.filter_value)
-#        self._mnist = mnist
 
         self._initialize()
 
@@ -29,42 +38,43 @@ class SetParamView:
 
     def destroy(self):
         self._frame.destroy()
-    
+
     def _initialize_input_fields(self):
 
-
-        test_data_start_label = ttk.Label(master=self._frame, text="Testidatan alkuindeksi (0-9999)")
+        test_data_start_label = ttk.Label(
+            master=self._frame, text="Testidatan alkuindeksi (0-9999)")
         self._test_data_start_entry = ttk.Entry(master=self._frame)
         test_data_start_label.grid(padx=5, pady=5, sticky=constants.W)
         self._test_data_start_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
-        test_data_end_label = ttk.Label(master=self._frame, text="Testidatan loppuindeksi (1-10000)")
+        test_data_end_label = ttk.Label(
+            master=self._frame, text="Testidatan loppuindeksi (1-10000)")
         self._test_data_end_entry = ttk.Entry(master=self._frame)
         test_data_end_label.grid(padx=5, pady=5, sticky=constants.W)
         self._test_data_end_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
-        train_data_start_label = ttk.Label(master=self._frame, text="Harjoitusdatan alkuindeksi (0-59999)")
+        train_data_start_label = ttk.Label(
+            master=self._frame, text="Harjoitusdatan alkuindeksi (0-59999)")
         self._train_data_start_entry = ttk.Entry(master=self._frame)
         train_data_start_label.grid(padx=5, pady=5, sticky=constants.W)
         self._train_data_start_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
-        train_data_end_label = ttk.Label(master=self._frame, text="Harjoitusdatan loppuindeksi (1-60000)")
+        train_data_end_label = ttk.Label(
+            master=self._frame, text="Harjoitusdatan loppuindeksi (1-60000)")
         self._train_data_end_entry = ttk.Entry(master=self._frame)
         train_data_end_label.grid(padx=5, pady=5, sticky=constants.W)
-        self._train_data_end_entry.grid(padx=5, pady=5, sticky=constants.EW)    
+        self._train_data_end_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
         k_value_label = ttk.Label(master=self._frame, text="k-arvo (1-100)")
         self._k_value_entry = ttk.Entry(master=self._frame)
         k_value_label.grid(padx=5, pady=5, sticky=constants.W)
-        self._k_value_entry.grid(padx=5, pady=5, sticky=constants.EW)    
+        self._k_value_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
-        layers_label = ttk.Label(master=self._frame, text="Kerrosten määärä (1-8)")
+        layers_label = ttk.Label(
+            master=self._frame, text="Kerrosten määärä (1-8)")
         self._layers_entry = ttk.Entry(master=self._frame)
         layers_label.grid(padx=5, pady=5, sticky=constants.W)
-        self._layers_entry.grid(padx=5, pady=5, sticky=constants.EW)    
-
-
-
+        self._layers_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
     def _set_parameters(self):
         error = True
@@ -75,7 +85,7 @@ class SetParamView:
         if not test_start_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()
-        elif int(test_start_input)<0 or int(test_start_input)>9999:
+        elif int(test_start_input) < 0 or int(test_start_input) > 9999:
             self._show_message("arvo oltava väliltä 0-9999")
             self._clear_entry_fields()
         else:
@@ -84,23 +94,23 @@ class SetParamView:
         test_end_input = self._test_data_end_entry.get()
         if not test_end_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
-            self._clear_entry_fields()            
-        elif int(test_end_input)<0 or int(test_end_input)>59999:
+            self._clear_entry_fields()
+        elif int(test_end_input) < 0 or int(test_end_input) > 59999:
             self._show_message("arvo oltava väliltä 0-59999")
             self._clear_entry_fields()
         elif int(test_end_input) < int(test_start_input):
-            self._show_message("loppuindeksin oltava suurempi kuin alkuindeksin")
+            self._show_message(
+                "loppuindeksin oltava suurempi kuin alkuindeksin")
             self._clear_entry_fields()
         else:
             self._test_index_end = int(test_end_input)
-
 
         train_start_input = self._train_data_start_entry.get()
 
         if not train_start_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
-            self._clear_entry_fields()            
-        elif int(train_start_input)<0 or int(train_start_input)>9999:
+            self._clear_entry_fields()
+        elif int(train_start_input) < 0 or int(train_start_input) > 9999:
             self._show_message("arvo oltava väliltä 0-59999")
             self._clear_entry_fields()
         else:
@@ -109,12 +119,13 @@ class SetParamView:
         train_end_input = self._train_data_end_entry.get()
         if not train_end_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
-            self._clear_entry_fields()            
-        elif int(train_end_input)<0 or int(train_end_input)>59999:
+            self._clear_entry_fields()
+        elif int(train_end_input) < 0 or int(train_end_input) > 59999:
             self._show_message("arvo oltava väliltä 0-59999")
             self._clear_entry_fields()
         elif int(train_end_input) < int(train_start_input):
-            self._show_message("loppuindeksin oltava suurempi kuin alkuindeksin")
+            self._show_message(
+                "loppuindeksin oltava suurempi kuin alkuindeksin")
             self._clear_entry_fields()
         else:
             self._train_index_end = int(train_end_input)
@@ -122,30 +133,29 @@ class SetParamView:
         k = self._k_value_entry.get()
         if not k.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
-            self._clear_entry_fields()               
+            self._clear_entry_fields()
         elif int(k) < 0 or int(k) > 100:
             self._show_message("arvo oltava väliltä 1-100")
-            self._clear_entry_fields()            
+            self._clear_entry_fields()
         else:
             self._k_value = int(k)
-        
+
         layers = self._layers_entry.get()
         if not layers.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
-            self._clear_entry_fields()  
-        elif int(layers)<1 or int(layers)>8:
+            self._clear_entry_fields()
+        elif int(layers) < 1 or int(layers) > 8:
             self._show_message("arvo oltava väliltä 1-8")
-            self._clear_entry_fields()                                    
+            self._clear_entry_fields()
         else:
             self._layers = int(layers)
             self._hide_message()
             error = False
 
         if not error:
-            self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
+            self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
+                                             self._train_index_start, self._train_index_end, self._k_value, self._layers)
             self._datahandler.init_knn()
-
-            
 
             self.destroy()
             self._initialize()
@@ -169,7 +179,7 @@ class SetParamView:
                          text=f"Harjoitusdatan alkuindeksi {self._train_index_start}")
         txt3.grid(row=6, column=200, padx=5, pady=5, sticky=constants.EW)
         txt4 = ttk.Label(master=self._frame,
-                         text=f"Harjoitusdatan alkuindeksi {self._train_index_end}")
+                         text=f"Harjoitusdatan loppuindeksi {self._train_index_end}")
         txt4.grid(row=8, column=200, padx=5, pady=5, sticky=constants.EW)
         txt5 = ttk.Label(master=self._frame,
                          text=f"k-arvo {self._k_value}")
@@ -181,9 +191,9 @@ class SetParamView:
                          text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
 
-
     def _calculate_knn(self):
-        self._datahandler.set_parameters(self._test_index_start, self._test_index_end, self._train_index_start, self._train_index_end, self._k_value, self._layers)
+        self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
+                                         self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
         self._datahandler.predict()
         self._show_result_view()
@@ -194,7 +204,6 @@ class SetParamView:
 
     def _hide_message(self):
         self._message_label.grid_remove()
-
 
     def _clear_entry_fields(self):
         self._test_data_start_entry.delete(0, 'end')
@@ -225,7 +234,7 @@ class SetParamView:
             master=self._frame,
             text="Aseta parametrit",
             command=self._set_parameters)
-        set_parameters_button.grid(padx=5, pady=5, sticky=constants.EW)        
+        set_parameters_button.grid(padx=5, pady=5, sticky=constants.EW)
 
         self._current_values()
 
@@ -244,6 +253,3 @@ class SetParamView:
         set_param_button.grid(padx=5, pady=5, sticky=constants.EW)
 
         self._hide_message()
-
-
- 
