@@ -8,6 +8,7 @@
  - kloonaa repositorio
  - asenna riippuvuudet poetryn virtuaaliympäristöön komennolla "poetry install"
  - aja ohjelma komennolla "poetry run invoke start"
+ - tarkemmat ohjeet, ks [manuaali](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/manuaali.md)
 
 
 ## Dokumentaatiolinkit
@@ -16,6 +17,7 @@
 - [viikkoraportti 2](dokumentaatio/viikkoraportti_2.md)
 - [viikkoraportti 3](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_3.md)
 - [viikkoraportti 4](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_4.md)
+- [viikkoraportti 5](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_5.md)
 - [määrittelydokumentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/Maarittely.pdf)
 - [testausdokumentti](dokumentaatio/testaus.md)
 - [toteutusdokumentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/toteutus.md)
