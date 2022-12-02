@@ -1,3 +1,3 @@
 [run]
 source = src
-omit = src/**/__init__.py,src/tests/**,src/ui/**,src/main.py, src/index.py, src/timer.py,src/visualize.py,src/testcases.py,src/config.py,src/directedhausdorff.py,src/undirectedhausdorff.py,src/hausdorff.py,src/read_mnist.py,src/hausdorff.py
+omit = src/**/__init__.py,src/tests/**,src/ui/**,src/main.py, src/index.py, src/timer.py,src/testcases.py,src/config.py,src/arrays.py,src/testrun.py

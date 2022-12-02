@@ -1,5 +1,5 @@
 [MASTER]
-ignore=main.py,src/ui,src/tests
+ignore=main.py,src/ui,src/tests,testrun.py
 
 [MESSAGES CONTROL]
 
