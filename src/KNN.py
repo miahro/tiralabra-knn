@@ -71,6 +71,7 @@ class KNN:
             Y_pred.append(counter[0])
         return Y_pred
 
+  
     def predict3(self):
         """KNN ennustamat ominaisuudet (numero 0-9)
         toteutus minimikekona
@@ -97,9 +98,11 @@ class KNN:
                     if not_found:
                         minimum = 1000000
                         for b in self.X_train_points[train_index]:
-                            temp = (a[0]-b[0])**2+(a[1]-b[1])**2
-                            if temp < minimum:
-                                minimum = temp
+                            minimum = min(minimum,(a[0]-b[0])*(a[0]-b[0]) +(a[1]-b[1])*(a[1]-b[1]) )
+                            #temp = (a[0]-b[0])*(a[0]-b[0]) +(a[1]-b[1])*(a[1]-b[1])
+                            # temp = (a[0]-b[0])**2+(a[1]-b[1])**2
+                            # if temp < minimum:
+                            #     minimum = temp
                         sum_AB += minimum
 
                 sum_BA = 0
@@ -119,9 +122,11 @@ class KNN:
                     if not_found:
                         minimum = 1000000
                         for a in self.X_test_points[test_index]:
-                            temp = (a[0]-b[0])**2+(a[1]-b[1])**2
-                            if temp < minimum:
-                                minimum = temp
+                            minimum = min (minimum, (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1]))
+                            #temp = (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1])
+                            # temp = (a[0]-b[0])**2+(a[1]-b[1])**2
+                            # if temp < minimum:
+                            #     minimum = temp
                         sum_BA += minimum
 
                 d = sum_AB + sum_BA
