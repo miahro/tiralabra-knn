@@ -6,6 +6,9 @@
     - tulokset esitetään järkevämmässä muodossa
     - testinumero voidaan plotata
     - tulokset voidaan tallentaa .csv-tiedostoon
+- muutettu etäisyyslaskennassa toiseen potenssiin korutus kertolaskulla:
+    - tämä parantaa laskennan nopeutta silloin kun läpikäytäviä kerroksia on vähän (eli suoraan etäisyyslaskentaan menee suuri osa)
+    - kuitenkin, tälläkin muutoksella ajan minimi lötyy noin 7-kerroksesta, jolloin suoran etäisyyslaskennan nopetus ei auta merkittävästi
 - yksikkötestien kattavuutta parannettu
 - koodin staattista laatua parannettu
 - dokumentaatiota päivitetty
@@ -20,26 +23,15 @@
 - toki koodaus/testaus/dokumentointi rutiini parantunut koko ajan
 
 ## Ongelmia
-- tämä on toisto viime viikolta, koska suorituskyvyn pullonkaulaa ei löytynyt
-- suuria ongelmia suoritusajan kanssa. Tällä hetkellä yhdelle testipisteelle koko opetusdatan (eli 1 X 60k) kestää edelleen n. 50 sekuntia. Eli koko 10k x 60k kestäisi n 6 päivää. 
-- en ymmärrä / löydä vikaa, nähdäkseni katkaisen loopit ensimmäisessä mahdollisessa kohdassa
-- seuraavia asioita olen testannut / yrittänyt optimoida, mutta näiden vaikutus on vain luokkaa plus-miinus muutama sekunti / 50 sekunnin kokonaisuus:
-    - euklidisesta etäisyydestä siirrytty neliölliseen etäisyyteen
-    - funktiokutsuja vähennetty (ts laskenta integroitu yhteen isoon funktioon), tämänkin vaikutus on pieni
-    - pisteen ja pistejoukon minimietäisyyden laskemiseksi yritetty listakoostetta, josta minimi, pelkän minimin ylläpitoa (tämä marginaalisesti paras, joten jätetty näin)
-    - "kerrosten määrää" (eli montako pistettä haetaan boolean matriisista) säädetty; tämänkin vaikutus on melko marginaalinen, on kerroksia mitä vain 3-7
-    - knn toteutettu listana ja minimikekona; tämänkin vaikutus on hyvin pieni, kuitenkin keko marginaalisesti parempi, ja se jätetty ratkaisuksi
-    - numpy arrayt vaihdettu tavallisiksi listoiksi, paransi aikaa jonkin verran
-- tiedän, että ongelma ei johdu seuraavista:
-    - Datahandler ylätason luokasta (testattu käyttämällä KNN luokkaa ilman tätä, ja ajoaika on sama)
-    - käyttöliittymästä (käli ei sisällä mitään laskentaa, ja testattu manuaalisesti, että ajoaika on sama ilman käliä)
+- suoritusaika on edelleen pullonkaula
+- ohjaajalta saatu hyviä vinkkejä, näitä testattu, mutta silti edelleen ollaan luokassa noin 44 sekuntia, per testidata koko opetusjoukolla (eli 5 päivää kestäisi koko 10k x 60k data)
+- alan olla vakuuttunut, ettei nykyisen toteutuksen laskennan optimointi johda merkittäviin parannuksiin
+- jäjellä oleva parannusyritys on käyttää bittimatriisiesitystä, tämä on sen verran iso muutos, ettei onnistu tämän viikon palautukseen
+
 
 ## Suunnitelma seuraavalle viikolle
-- nopeusongelman syyn löytäminen
-
-
-
-
-
-
+- ohjaajan vinkistä yritän nopeuttaa laskentaa käyttämällä bittimatriisiesitystä
+    - tämä on suuri ja riskialtis muutos (riskit väärälle laskennalle, ei yhtä suoraviivainen tarkastaa ja testata kuin normaali laskenta)
+    - yritetään kuitenkin
+- riippumatta siitä, onnistuuko bittimatriisitoteutus vai ei, suorituskykysytestausta tunnistuksen ja parametrien optimoinnin suhteen jatketaan
 
