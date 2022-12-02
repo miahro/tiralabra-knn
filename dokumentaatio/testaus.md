@@ -55,8 +55,8 @@ Hieman yllättäen paras tulos tuli arvoilla 50, 75 ja 175, ja huonoin tulos arv
 
 ![suodatin](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/filter_vs_wrong.png)
 
-
-
+### Tunnistuksen tarkkuus
+lisättävä
 
 ## Koodin laadunseuranta
 - koodin pylint arvo on pudonnot 9.68/10
