@@ -1,33 +1,63 @@
 # Testausdokumentti
 
 ## Yksikkötestaus
-- modulille utils toteutettu yksikkötestit
-- luokalle KNN toteutettu yksikköstestit
-    - testikattavuus 91% , manuaalisesti laskettu testitapaus ei kata kaikkia tapauksia, laajennetaan myöhemmin
-    - huomioitava, että yksikkötesti ei ainakaan tässä vaiheessa testaa KNN:n oikeellisuutta, lähinnä vain, että palautettu arvo on oikeaa tyyppiä
-- luokalle Mnistdata on toteutettu yksikkötestit:
-    - testikattavuus 88%, koska testitapaus testaa vain jo ladatun tiedoston tapauksen. Korjataan ja laajennetaan seuraaviin palautuksiin.
-- luokalle DataHandler on toteutettu yksikkötestit:
-    - testikattavuus on vain 59%, koska tulostenkäsittelyfunktioiden testaus edellyttäisi oikein tuloksen tietämistä, ja tätä ei voi helposti KNN:n tapauksessa toteuttaa
+- yksikkötestit toteutuettu seuraaville luokille ja moduleille:
+    - KNN-luokka
+    - Mnistdata-luokka
+    - DataHandler-luokka
+    - utils-moduli
+- yksikkötestauksesta on jätetty pois käyttöliittymä, sekä projekti/konfigurointi -modulit, jotka sisältävät lähinnä vakioita
+- testikattavuus on 94%. Testaamatta jäävät tapaukset liittyvät lähinnä tiedostojen luontiin, mutta näien toimivuus on todettu manuaalisesti
+
 
 ## Testikattavuus
 ![Testikattavuusraportti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/TestCoverageReport.png)
 
 ## Suorituskykytestaus
-Ohjelman suorituskykyä on testattu erillisellä ohjelmalla (yksinkertainen python main-ohjelma, joka vain luuppaa datahandler oliota eri parametreillä)
+Ohjelman suorituskykyä on testattu erillisellä ohjelmalla (yksinkertainen python main-ohjelma, joka vain luuppaa datahandler oliota eri parametreillä). Suorituskyvyn testaamisessa on haettu parhaiten toimivia parametrejä:
+- nopeuden suhteen
+- tunnistamisen oikeellisuuden suhteen
+
+Johtuen ohjelman hitaudesta, testaamiseen käytetyt data-joukot ovat pienehköjä. Oikeiden numeroiden tunnistamisessa on selvästi satunnaisvaihtelua; X 
+
+### kerrosten optimointi
+Kerrosten (eli kuin läheltä pistettä haetaan kuvan lähintä pistettä boolean matriisista) vaikutusta ajoaikaan on tutkittu muuttamalla "kerrokset" parametria välillä 1-8. Kerrosten määrä ei vaikuta tulosten oikeellisuuten, vain ajoaikaan. 
+- ajoaika paranee merkittävästi 4:n kerrokseen asti, jonka jälkeen se on lähes vakio
+- jonkinlainen optimi löytyy 7:llä kerroksella (tosin erot välillä 4-8 ovat olemattomia)
+- ajossa käytetyt paramatrit:
+    - testidatan indeksit [500, 600]
+    - opetusdatan indeksit [0, 500]
+    - k-arvo 2
+    - suodatin 128
+
+![Ajoaka](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/runtime_vs_layers.png)
+
+### k-arvo
+K-arvon optimia tutkittiin seuraavalla datalla:
+- testidatan indeksit [500, 550]
+- opetusdatan indeksit [0, 500]
+- suodatin 128
+- k-arvo välillä 1-100
+
+![k-arvo](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/k_value_vs_wrong.png)
+
+Tämän perusteella k-arvon optimi on 3 tai 4 (normaalisti knn:ssä käytetään parittomia k-arvoja, joten 3). Huomioitava tässäkin testissä, että sekä opetusjoukko että testijoukko olivat hyvin pieniä. Tulos saattaisi poiketa isommilla joukoilla. 
 
 
-Ohjelman suorituskykyä on testattu manuaalisesti, eikä tässä vaiheessa kovin järjestelmällisesti. 
-- laskenta on edelleen liian hidas. KNN:n ajaminen yhdellä testinumerolla ja 60 000 opetusdatapisteellä kestään noin 50 sekuntia. Tämä tarkoittaisi, että koko 10 000 testidatan ajaminen kestäisi 6 päivää. 
-- KNN:n parametreja (johtuen osittain hitaasta laskennasta) eikä eri vaihtoehtoja etäisyysmitoiksi ei ole vielä järjestelmällisesti testattu. Kuitenkin jo alustavien testien perusteella on selvää, että numeroiden tunnistus toimii vähintään tyydyttävästi jopa kohtalaisen pienillä opetusdatajoukoilla. Esimerkiksi:
-    - MNIST testi datat 0-99
-    - MNIST opetusdata 0-999
-    - k-arvolla 6
-    - etäisyysmittana neliöllisten etäisyyksien summa
-    - tunnistetaan oikein 95% numeroista
-    - ajoaika 82 sekuntia
+### Suodattimen arvo
+Harmaasuodattimen arvon vaikutusta tutkittiin seuraavalla datalla:
+    - testidatan indeksit [500, 600]
+    - opetusdatan indeksit [0, 1000]
+    - k-arvo 3
+    - suodatin [50, 75, 100, 125, 150, 175]
+
+Hieman yllättäen paras tulos tuli arvoilla 50, 75 ja 175, ja huonoin tulos arvolla 125 (lähellä 0-255 harmaasävykuvien puoliväliä, joka olisi intuitiivisesti looginen valinta). Tässäkin tietysti testi ja opetusdata on melko rajallinen joukko
+
+![suodatin](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/filter_vs_wrong.png)
+
+
+
 
 ## Koodin laadunseuranta
-- koodin pylint arvo on pudonnot 7.82/10.00 
-- osa tästä on johtuu tehokkuusvaatimuksesta, mutta osa siitä, että aika ei riittänyt siistiä koodia riittävästi tämän viikon palautukseen
-- parannetaan seuraavaan palautukseen
+- koodin pylint arvo on pudonnot 9.68/10
+- käyttöliittymä ja testit eivät ole mukana pylint arviossa
