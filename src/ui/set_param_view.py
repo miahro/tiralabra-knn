@@ -60,7 +60,7 @@ class SetParamView:
         self._train_data_start_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
         train_data_end_label = ttk.Label(
-            master=self._frame, text="Harjoitusdatan loppuindeksi (1-60000)")
+            master=self._frame, text="Harjoitusdatan loppuindeksi (100-60000)")
         self._train_data_end_entry = ttk.Entry(master=self._frame)
         train_data_end_label.grid(padx=5, pady=5, sticky=constants.W)
         self._train_data_end_entry.grid(padx=5, pady=5, sticky=constants.EW)
@@ -120,8 +120,8 @@ class SetParamView:
         if not train_end_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
             self._clear_entry_fields()
-        elif int(train_end_input) < 0 or int(train_end_input) > 59999:
-            self._show_message("arvo oltava väliltä 0-59999")
+        elif int(train_end_input) < 100 or int(train_end_input) > 59999:
+            self._show_message("arvo oltava väliltä 100-59999")
             self._clear_entry_fields()
         elif int(train_end_input) < int(train_start_input):
             self._show_message(
