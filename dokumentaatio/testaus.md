@@ -11,7 +11,7 @@
 
 
 ## Testikattavuus
-![Testikattavuusraportti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/TestCoverageReport.png)
+Testikattavuusraportti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/TestCoverageReport.png
 
 ## Suorituskykytestaus
 Ohjelman suorituskykyä on testattu erillisellä ohjelmalla (yksinkertainen python main-ohjelma, joka vain luuppaa datahandler oliota eri parametreillä). Suorituskyvyn testaamisessa on haettu parhaiten toimivia parametrejä:
