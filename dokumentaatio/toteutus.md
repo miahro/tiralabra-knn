@@ -69,8 +69,12 @@ Ohjelman aikavaativuuden määräävä tekijä on etäisyyksien laskeminen, kosk
 3. Tässä lasketaan raa'asti neliölliset etäisyydet pisteestä pistejoukon jokaiseen pisteeseen, ja haetaan näistä minimi
 
 
-## Saavutetut aika- ja tilavaativuudet
-- kesken
+## Saavuttu aikavaativuus
+Algoritmin aikavaativuus on O(MN), missä M on testidatan koko, ja N on opetusdatan koko. Tämä on ilmeistä, koska:
+- KNN:ssä joudutaan joka tapauksessa laskemaan jokaisen testidatan etäisyys jokaiseen opetusdataan
+- koska Hausdorff-etäisyydet on määritelty suuntaamattomina etäisyyksinä f(d(A,B), d(B,A)), joudutaan myös lasketaam jokaisen opetusdatapisteen etäisyys jokaiseen testidatapisteeseen. Kuitenkin tämä vain kaksinkertaistaa laskennan määrän, ei vaikuta O-aikavaativuuteen.
+
+Käytetyssä algoritmissa O-aikavaativuudeen saavuttaminen ei ole vaikeaa, eikä sille toisaalta ole oikeastaan mitään tehtävissä. Aikavaativuuden optimoinnissa oleellista on etäisyyslaskennan vakioiden optimointi, jota on pyritty tekemään yllä kuvatuilla tavoilla. Tulokset esitetty tarkemmmin [testausdokumentissa](dokumentaatio/testaus.md).
 
 ## Puutteet ja parannusmahdollisuudet
 - laskennan hitaus on suurin ongelma

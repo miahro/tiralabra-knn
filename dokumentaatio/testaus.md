@@ -25,8 +25,8 @@ Kerrosten (eli kuin läheltä pistettä haetaan kuvan lähintä pistettä boolea
 - ajoaika paranee merkittävästi 4:n kerrokseen asti, jonka jälkeen se on lähes vakio
 - jonkinlainen optimi löytyy 7:llä kerroksella (tosin erot välillä 4-8 ovat olemattomia)
 - ajossa käytetyt paramatrit:
-    - testidatan indeksit [500, 600]
-    - opetusdatan indeksit [0, 500]
+    - testidatan indeksit 500 - 600
+    - opetusdatan indeksit 0 - 500
     - k-arvo 2
     - suodatin 128
 
@@ -34,8 +34,8 @@ Kerrosten (eli kuin läheltä pistettä haetaan kuvan lähintä pistettä boolea
 
 ### k-arvo
 K-arvon optimia tutkittiin seuraavalla datalla:
-- testidatan indeksit [500, 550]
-- opetusdatan indeksit [0, 500]
+- testidatan indeksit 500 - 550
+- opetusdatan indeksit 0 - 500
 - suodatin 128
 - k-arvo välillä 1-100
 
@@ -46,8 +46,8 @@ Tämän perusteella k-arvon optimi on 3 tai 4 (normaalisti knn:ssä käytetään
 
 ### Suodattimen arvo
 Harmaasuodattimen arvon vaikutusta tutkittiin seuraavalla datalla:
-    - testidatan indeksit [500, 600]
-    - opetusdatan indeksit [0, 1000]
+    - testidatan indeksit 500-600
+    - opetusdatan indeksit 0-1000
     - k-arvo 3
     - suodatin [50, 75, 100, 125, 150, 175]
 
@@ -55,9 +55,53 @@ Hieman yllättäen paras tulos tuli arvoilla 50, 75 ja 175, ja huonoin tulos arv
 
 ![suodatin](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/filter_vs_wrong.png)
 
+### Suoritusaika testi- ja opetusdatan suhteen
+- suoritusaika määritettiin testijoukolla:
+    - testidatan indeksit 0-500
+    - opetusdatan inkdeksit 0 - [100, 500, 1000, 2000, 5000, 10000, 30000, 60000]
+    - harmaasuodatin 75
+    - k-arvo 3
+    - kerrokset 7
+- tulokset:
+    - ajoaika on selvästi lineaarinen (kuten pitääkin) suhteessa testidatan määrä * opetusdatan määrä
+    - yksi testinumero vs yksi opetusnumero kestää 0,8 millisekuntia
+    - näin ollen koko 10k * 60k datajoukko kestäisi 134 tuntia
+
+![ajoaika2](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/runtime_vs_train.png)
+
+
 ### Tunnistuksen tarkkuus
-lisättävä
+Tunnistuksen tarkkuutta testattiin seuraavalla datalla:
+    - testidatan indeksit 0-500
+    - opetusdatan inkdeksit 0 - [100, 500, 1000, 2000, 5000, 10000, 30000, 60000]
+    - harmaasuodatin 75
+    - k-arvo 3
+    - kerrokset 7
+- tulokset:
+    - tunnistuksen tarkkuus parani, eli virheprosentti pieneni opetusdatan kasvaessa. Tämä toimii kuten pitääkin
+    - täydellä 60k opetusdatalla päästiin 2,6% virheeseen, eli 97,4% tunnistustarkkuuteen, jota voidaan pitää kohtalaisen hyvänä
+
+![virheprosentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/error_vs_train.png)
+
+Täydellä opetusjoukolla virheellisiä tunnistuksia oli 13 kpl (500 kappaleesta). Väärin tunnistetut numerot olivat:
+- [4, 4, 9, 4, 4, 8, 2, 4, 3, 6, 4, 9, 8]
+
+| numero | vääriä |
+| :---: | :----:|
+| 0 | 0  | 
+| 1 | 0  | 
+| 2 | 1  | 
+| 3 | 1  | 
+| 4 | 6  | 
+| 5 | 0  | 
+| 6 | 1  | 
+| 7 | 0  | 
+| 8 | 2  | 
+| 9 | 2  | 
+
+Numero 4 oli siis selkeästi vaikein tunnistaa.
+
 
 ## Koodin laadunseuranta
-- koodin pylint arvo on pudonnot 9.68/10
+- koodin pylint arvo on 9.68/10
 - käyttöliittymä ja testit eivät ole mukana pylint arviossa
