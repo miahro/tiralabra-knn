@@ -212,7 +212,7 @@ class KNN:
                     not_found = False
                     break
             if not_found:
-                sum_BA += min([square_distance(b, a)
+                sum_BA += min([square_distance(b, a) # pylint: disable=arguments-out-of-order
                               for a in self.X_test_points[test_index]])
 
         return sum_AB+sum_BA

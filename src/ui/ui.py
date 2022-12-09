@@ -1,6 +1,7 @@
+"""moduli käyttöliittymän pääluokkaa UI varten"""
+
 from tkinter import Tk
 from ui.set_param_view import SetParamView
-#from ui.param_view import ParamView
 from ui.result_view import ResultView
 from ui.load_view import LoadView
 from datahandler import DataHandler

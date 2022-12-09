@@ -158,6 +158,8 @@ class DataHandler:
     def write_results_to_file(self):
         """tallentaa KNN:n tulokset .csv tiedostoon"""
         result = self.evaluate()
+        if not result:
+            return
         keys = result.keys()
         if not os.path.isfile(OUTPUTFILEPATH):
             with open(OUTPUTFILEPATH, 'w', encoding='utf-8') as csvfile:
