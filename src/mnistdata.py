@@ -9,16 +9,29 @@ from config import TRAIN_X_URL, TRAIN_Y_URL, TEST_X_URL, TEST_Y_URL, DATAFILEPAT
 
 class Mnistdata:
     """Luokka MNIST datan lukemista varten
-    lataa ja lukee MNIST datan
-    suodattaa harmaasävykuvat mustavalkoisiksi
-    annetulla filtterin arvolla (1-255)
-    tallettaa datan kahteen tietorakenteeseen:
-    1) numpu arrayksi (60k/10k kuvaa, x, y) xy = 28*28
-    2) pistelistaksi
-    sekä Y labelit 60k/10k numpy arrayna
+        lataa ja lukee MNIST datan
+        suodattaa harmaasävykuvat mustavalkoisiksi
+        annetulla filtterin arvolla (1-255)
+    Attributes:
+        X_test: opetusdata listana matriiseja
+        X_test_point_list: opetusdata listana pistelistoja
+        X_train: testidata listana matriiseja
+        X_X_train_point_list: testidata listana pistelistoja
+        Y_test: testidatan ominaisuudet listana
+        Y_train: opetusdatan ominaisuudet listana
+
     """
 
     def __init__(self, filter_value):
+        """alustaa Mnist -olion
+        Args:
+            filter_value: harmaasuodattimen arvo, tätä pienemmät nollataan
+                    suurempien tai yhtäsuurten arvo 1
+
+        datan lukuvaiheessa käytetään np.arrayta, mutta
+        lopussa np.array:t konvertoidaan normaaleiksi listoiksi,
+        koska näiden käsittely laskennassa on nopeampaa
+                    """
         X_train_temp = self.download(TRAIN_X_URL)[0x10:].reshape((-1, 28, 28))
         self.Y_train = self.download(TRAIN_Y_URL)[8:].tolist()
         X_test_temp = self.download(TEST_X_URL)[0x10:].reshape((-1, 28, 28))
@@ -35,11 +48,40 @@ class Mnistdata:
         self.X_test_point_list = [np.transpose(
             np.nonzero(x)).tolist() for x in self.X_test]
 
+        # binary_train_X = []
+        # for x in self.X_train:  # 60k
+        #     temp_bin = []
+        #     for i in range(28):  # 28 rows
+        #         row = x[i]
+        #         # print(row)
+        #         temp = 0
+        #         for j in range(28):  # 28 items
+        #             temp += (2**j)*row[j]
+        #         temp_bin.append(temp)
+        #     binary_train_X.append(temp_bin)
+        # self.binary_train_X = np.array(binary_train_X, dtype='int32')
+
+        # binary_test_X = []
+        # for x in self.X_test:  # 60k
+        #     temp_bin = []
+        #     for i in range(28):  # 28 rows
+        #         row = x[i]
+        #         # print(row)
+        #         temp = 0
+        #         for j in range(28):  # 28 items
+        #             temp += (2**j)*row[j]
+        #         temp_bin.append(temp)
+        #     binary_test_X.append(temp_bin)
+        # self.binary_test_X = np.array(binary_test_X, dtype='int32')
+
     @staticmethod
     def download(url):
         """lataa MNIST datan datatiedostoon, jos ei jo ladattu
         jos ladattu lukee paikallisesta datatiedostosta
-        palauttaa kuvat numpy arrayna
+        Args:
+            url: MNIST datan www-osoite
+        Returns:
+            palauttaa kuvat numpy arrayna
         """
         fp = os.path.join(DATAFILEPATH, hashlib.md5(
             url.encode('utf-8')).hexdigest())
@@ -54,30 +96,49 @@ class Mnistdata:
 
     def X_train_matrix(self, start=0, end=60000):
         '''palauttaa X_train kuvat matriirimuodossa
-            Args: start, stop: voidaan määritellä palautettava osajoukko'''
+            Args:
+                start, stop: osajoukon alku- ja loppuindekset
+            Returns:
+                osajoukko opetusdatasta, lista matriiseja'''
         return self.X_train[start:end]
 
     def X_train_list(self, start=0, end=60000):
         '''palauttaa X_train kuvat pistelistana
-            Args: start, stop: voidaan määritellä palautettava osajoukko'''
+            Args:
+                start, stop: osajoukon alku- ja loppuindeksit
+            Returns:
+                osajoukko opetusdatasta, lista pisteitä'''
         return self.X_train_point_list[start:end]
 
     def X_test_matrix(self, start=0, end=10000):
         '''palauttaa X_test kuvat matriisina
-            Args: start, stop: voidaan määritellä palautettava osajoukko'''
+            Args:
+                start, stop: osajoukon alku- ja loppuindekset
+            Returns:
+                osajoukko testidatasta, lista matriiseja'''
         return self.X_test[start:end]
 
     def X_test_list(self, start=0, end=10000):
         '''palauttaa X_test kuvat pistelistana
-            Args: start, stop: voidaan määritellä palautettava osajoukko'''
+            Args:
+                start, stop: osajoukon alku- ja loppuindeksit
+            Returns:
+                osajoukko testidatasta, lista pisteitä'''
         return self.X_test_point_list[start:end]
 
     def Y_train_labels(self, start=0, end=60000):
         '''palauttaa  Y_train ominaisuudet
-            Args: start, stop: voidaan määritellä palautettava osajoukko'''
+            Args:
+                start, stop: osajoukon alku- ja loppuindeksit
+            Returns:
+                opetusdatan ominaisuudet, listana'''
+
         return self.Y_train[start:end]
 
     def Y_test_labels(self, start=0, end=10000):
         '''palauttaa  Y_test ominaisuudet
-            Args: start, stop: voidaan määritellä palautettava osajoukko'''
+            Args:
+                start, stop: osajoukon alku- ja loppuindeksit
+            Returns:
+                testidatan ominaisuudet, listana'''
         return self.Y_test[start:end]

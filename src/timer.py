@@ -28,7 +28,9 @@ class Timer:
             self.endtime = time.time()
 
     def result(self):
-        """palauttaa suoritusajan sekunteina"""
+        """ laskee suoritusajan
+        Returns:
+            suoritusaika sekunteina"""
         return self.endtime-self.starttime
 
     def print_result(self):

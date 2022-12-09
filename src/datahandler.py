@@ -3,7 +3,6 @@ import csv
 import os
 from mnistdata import Mnistdata
 from KNN import KNN
-#from utils import square_dist_matrix, list_of_indices
 from timer import Timer
 from config import OUTPUTFILEPATH
 
@@ -14,10 +13,34 @@ class DataHandler:
     toimittaa valitun osan siitä KNN oliolle laskentaa varten
     ja käsittelee KNN olion predict -funktion toimittamat tulokset
     DataHandler ei siis suorita varsinaista lastentaa
+
+    Attributes:
+        X_train_point_list: opetusdata listana pistelistoja
+        X_train_point_matrix: opetusdata listana matriiseja (boolean)
+        X_test_point_list: testidata listana pistelistoja
+        X_test_point_matrix: opetusdata listana matriiseja (boolean)
+        Y_train: opetusdatan ominaisuudet (numerot 0-9), lista
+        Y_test: testidatan ominaisuudet (numerot 0-9), lista
+        Y_predicted: ennustetut numerot (0-0), lista
+        knn: KNN-luokan olio
+        filter_value: harmaasuodattimen arvo
+        timer: Timer-luokan olio, käytetään suoritusajan mittaamiseen
+        initialized: boolean, kertoo onko parametrit asetettu
+        test_index_start: laskennassa käytettävän testidatan alkuindeksi
+        test_index_end: laskennassa käytettävän testidatan loppuindeksi
+        train_index_start: laskennassa käytettävän opetusdatan alkuindeksi
+        train_index_end: laskennassa käytettävän opetusdatan loppuindeksi
+        k: knn-algoritmin käyttämä k (eli montako lähintä naapuria huomioidaan)
+        layers: kerrosten määrä, laskennan tehokuutee vaikuttava parametri
+        mnist: Mnist luokan olio
+
     """
 
     def __init__(self):
-        """konstruktori alustaa luokan muuttujat tyhjiksi"""
+        """konstruktori alustaa luokan muut muuttujat tyhjiksi, paitsi:
+        filter_value, oletusarvoksi 128
+        timer_timer luokan olio
+        initilized: False"""
         self.X_train_point_list = None
         self.X_train_matrix = None
         self.X_test_point_list = None
@@ -42,12 +65,22 @@ class DataHandler:
         self.mnist = Mnistdata(filter_value=self.filter_value)
 
     def set_filter(self, filter_value):
-        """harmaasuodattimen arvo voidaan asettaa tästä, ennen MNIST datan lukemista"""
+        """harmaasuodattimen arvo voidaan asettaa tästä, ennen MNIST datan lukemista
+        Args:
+            filter_value: 0-255"""
         self.filter_value = filter_value
 
     def set_parameters(self, test_index_start, test_index_end,
                        train_index_start, train_index_end, k=3, layers=4):
-        """asetetaan parametrit, joiden perusteella KNN olio luodaan"""
+        """asetetaan parametrit, joiden perusteella KNN olio luodaan
+        Args:
+            test_index_start: laskennassa käytettävän testidatan alkuindeksi
+            test_index_end: laskennassa käytettävän testidatan loppuindeksi
+            train_index_start: laskennassa käytettävän opetusdatan alkuindeksi
+            train_index_end: laskennassa käytettävän opetusdatan loppuindeksi
+            k: knn-algoritmin käyttämä k  oletusarvona 3
+            layers: kerrosten määrä, oletusarvona 4
+            """
         self.test_index_start = test_index_start
         self.test_index_end = test_index_end
         self.train_index_start = train_index_start
@@ -76,13 +109,31 @@ class DataHandler:
 
     def predict(self):
         """kutsuu KNN:n predict3 funktiota
-        tämä suorittaa kaiken varsinaisen laskennan"""
+        tämä suorittaa kaiken varsinaisen laskennan
+        mittaa myös suoritusajan"""
         self.timer.start()
         self.Y_predicted = self.knn.predict3()
         self.timer.stop()
 
     def evaluate(self):
-        """palauttaa KNN:n tulokset sanakirjana"""
+        """palauttaa KNN:n tulokset sanakirjana
+        Returns:
+            tulokset sanakirjana: keys, values
+                'test_index_start': testidatan alkuindeksi
+                'test_index_end': testidatan loppuindeksi
+                'train_index_start': opetusdatan alkuindeksi
+                'train_index_end': opetusdatan loppuindeksi
+                'Y_test': tesdatan todelliset ominaisuudet
+                'Y_prediected': testidatan ennustetut ominaisuudet
+                'correct': oikein ennustettujen määrä
+                'wrong':  väärin ennustettujen määrä
+                'wrong_ind': väärin ennustettuejen indeksit
+                'wrong_nos': väärin ennustetut numerot
+                'wrong_orig_mnist': väärien ennustettujen indeksit alkup MNIST datassa
+                'runtime": suoritusaika
+                'k-value': laskennassa käytetty k-arvo
+                'filter': laskennassa käytetty harmaasuotimen arvo
+                'layers': laskennassa käytetyt kerrokset'"""
         if self.Y_predicted is None:
             return {}
         wrong_ind = []
@@ -106,7 +157,6 @@ class DataHandler:
 
     def write_results_to_file(self):
         """tallentaa KNN:n tulokset .csv tiedostoon"""
-        # print(OUTPUTFILEPATH)
         result = self.evaluate()
         keys = result.keys()
         if not os.path.isfile(OUTPUTFILEPATH):

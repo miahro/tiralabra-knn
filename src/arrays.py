@@ -1,5 +1,6 @@
 """ neliölliset etäisyysmatriisit sekä pistelistat Hausdorff laskentafunktion 'kerrosten'
-mukaan laskettu valmiiksi tämän. Tämä on luultavasti tarpeetonta, mutta tälle varmistettu,
+mukaan laskettu valmiiksi tähän. Käytetty utils-modulin "square_dist_matrix" ja "list_of_indices"-
+funktioita. Tämä on luultavasti tarpeetonta, mutta tälle varmistettu,
 ettei tule vahingossa toistuvia funktiokutsuja """
 
 SDM1 = [[2, 1, 2], [1, 0, 1], [2, 1, 2]]

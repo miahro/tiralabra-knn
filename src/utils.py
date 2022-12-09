@@ -1,4 +1,8 @@
-"""moduuli apufunktioita varten"""
+"""moduuli apufunktioita varten
+apufunktioiden tarkoitus on nopeuttaa laskentaa:
+näillä lasketaan valmiiksi matriisit sekä pistelistat,
+jotta varsinainen laskenta ei tarvitse funktiokutsuja
+"""
 from math import sqrt
 import numpy as np
 
@@ -6,30 +10,46 @@ import numpy as np
 def euclidean(a, b):
     """pisteiden a ja b [x,y] välinen
         normaali euklidinen etäisyys
+    Args:
+        a, b: pisteet (x,y) tupleina
+    Returns:
+        euklidinen etäisyys
     """
     return sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
 
 
 def square_distance(a, b):
     """pisteiden a ja b [x,y] välinen
-    neliöllinen etäisyys"""
+    neliöllinen etäisyys
+    Args:
+        a,b: pisteet (x,y) tupleina
+    Returns:
+        neliöllinen täisyys"""
     return (a[0]-b[0])**2+(a[1]-b[1])**2
 
 
 def euclidean_dist_matrix(layers):
     """taulukkoon valmiiksi laskettuna keskipisteestä
-        euklidiset etäisyydet layers kerrokselle"""
+        euklidiset etäisyydet layers kerrokselle
+    Args:
+        layers: kerrosten määrä
+    Returns:
+        dist_array: euklidiset etäisyydet np.arrayna"""
     center = (layers, layers)
-    dist_array = np.empty([2*layers+1, 2*layers+1], dtype='int16')
+    dist_array = np.empty([2*layers+1, 2*layers+1])
     for i in range(0, dist_array.shape[0]):
         for j in range(0, dist_array.shape[1]):
-            dist_array[i][j] = int(euclidean(center, (i, j)))
+            dist_array[i][j] = euclidean(center, (i, j))
     return dist_array
 
 
 def square_dist_matrix(layers):
     """taulukkoon valmiiksi laskettuna keskipisteestä
-        neliölliset etäisyydet layers kerrokselle"""
+        neliölliset etäisyydet layers kerrokselle
+    Args:
+        layers: kerrosten määrä
+    Returns:
+        dist_array: neliölliset etäisyydet np.arrayna, kokonaislukuja"""
     center = (layers, layers)
     dist_array = np.empty([2*layers+1, 2*layers+1], dtype='int16')
     for i in range(0, dist_array.shape[0]):
@@ -39,7 +59,14 @@ def square_dist_matrix(layers):
 
 
 def list_of_indices(distance_array):
-    """järjestetyn etäisyystaulukon indeksi (x,y) listana"""
+    """järjestetyn etäisyystaulukon indeksi (x,y) listana
+    Args:
+        etäisyysmatriisi: np.array
+    Returns:
+        lista tupleja (x,y) etäisyyksien mukaan järjestettynä
+            indeksi 0, jätetään pois, koska pisteen etäisyys itseensä on aina
+            nolla, eikä tätä tarvita
+    """
     ind = np.unravel_index(np.argsort(
         distance_array, axis=None), distance_array.shape)
     center = distance_array.shape[0]//2
