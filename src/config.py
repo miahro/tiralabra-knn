@@ -2,17 +2,29 @@
 datan www-osoitteet, data ja tulostiedoston polut
 sekä oletusparametrit käyttöliittymän parametrinäkymää varten"""
 import os
+from dotenv import load_dotenv # pylint: disable=import-error
 
 directory = os.path.dirname(__file__)
-
+load_dotenv(dotenv_path=os.path.join(directory, "..", ".env"))
 
 TRAIN_X_URL = "http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz"
 TRAIN_Y_URL = "http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz"
 TEST_X_URL = "http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz"
 TEST_Y_URL = "http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz"
 
-DATAFILEPATH = os.path.join(directory, '..', 'data')
-OUTPUTFILEPATH = os.path.join(directory, '..', "data/knn_results.csv")
+
+datafolder = os.getenv("DATAFOLDER")
+DATAFILEPATH = os.path.join(directory, "..", datafolder)
+
+
+
+outputfile = os.getenv("OUTPUTFILE")
+OUTPUTFILEPATH = os.path.join(
+    directory, "..", datafolder, outputfile)
+
+
+# DATAFILEPATH = os.path.join(directory, '..', 'data')
+# OUTPUTFILEPATH = os.path.join(directory, '..', "data/knn_results.csv")
 
 
 # oletusparametrit käyttöliittymää varten
