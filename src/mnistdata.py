@@ -83,6 +83,8 @@ class Mnistdata:
         Returns:
             palauttaa kuvat numpy arrayna
         """
+        if not os.path.exists(DATAFILEPATH):
+            os.makedirs(DATAFILEPATH)
         fp = os.path.join(DATAFILEPATH, hashlib.md5(
             url.encode('utf-8')).hexdigest())
         if os.path.isfile(fp):

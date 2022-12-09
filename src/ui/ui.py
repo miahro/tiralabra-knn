@@ -12,7 +12,6 @@ class UI:
         self._current_view = None
         self._mnist = None
         self._datahandler = DataHandler()
-        # print(self._datahandler)
 
     def start(self):
         self._show_load_view()
