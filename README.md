@@ -18,6 +18,7 @@
 - [viikkoraportti 3](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_3.md)
 - [viikkoraportti 4](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_4.md)
 - [viikkoraportti 5](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_5.md)
+- [viikkoraportti 6](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_6.md)
 - [määrittelydokumentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/Maarittely.pdf)
 - [testausdokumentti](dokumentaatio/testaus.md)
 - [toteutusdokumentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/toteutus.md)
