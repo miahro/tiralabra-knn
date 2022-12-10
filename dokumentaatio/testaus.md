@@ -10,15 +10,18 @@
 - testikattavuus on 94%. Testaamatta jäävät tapaukset liittyvät lähinnä tiedostojen luontiin, mutta näien toimivuus on todettu manuaalisesti
 
 
-## Testikattavuus
+### Testikattavuus
 ![Testikattavuusraportti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/TestCoverageReport.png)
+
+## Järjestelmätestaus
+Järjestelmätestausta on suoritettu manuaalisesti, havaitut ongelmat on korjattu.
 
 ## Suorituskykytestaus
 Ohjelman suorituskykyä on testattu erillisellä ohjelmalla (yksinkertainen python main-ohjelma, joka vain luuppaa datahandler oliota eri parametreillä). Suorituskyvyn testaamisessa on haettu parhaiten toimivia parametrejä:
 - nopeuden suhteen
 - tunnistamisen oikeellisuuden suhteen
 
-Johtuen ohjelman hitaudesta, testaamiseen käytetyt data-joukot ovat pienehköjä. Oikeiden numeroiden tunnistamisessa on selvästi satunnaisvaihtelua; X 
+Johtuen ohjelman hitaudesta, testaamiseen käytetyt data-joukot ovat pienehköjä. Oikeiden numeroiden tunnistamisessa on selvästi vaihtelua riippuen valitusta datajoukosta. 
 
 ### kerrosten optimointi
 Kerrosten (eli kuin läheltä pistettä haetaan kuvan lähintä pistettä boolean matriisista) vaikutusta ajoaikaan on tutkittu muuttamalla "kerrokset" parametria välillä 1-8. Kerrosten määrä ei vaikuta tulosten oikeellisuuten, vain ajoaikaan. 
@@ -103,5 +106,5 @@ Numero 4 oli siis selkeästi vaikein tunnistaa.
 
 
 ## Koodin laadunseuranta
-- koodin pylint arvo on 9.68/10
+- koodin pylint arvo on 9.83/10
 - käyttöliittymä ja testit eivät ole mukana pylint arviossa

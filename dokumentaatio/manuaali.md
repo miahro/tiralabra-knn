@@ -41,11 +41,13 @@ Ohjelma sisältää hyvin yksinkertaisen käyttöliittymän. Näkymissä voi lii
 
 ### Parametrien asetusnäkymä
 - tässä näkymässä asetetaan parametrit KNN:ää varten (tai jätetään oletukset voimaan)
-- testidatan alku ja loppuindeksi
-- opetusdatan alku ja loppuindeksi
-- HUOM!! ohjelma on vielä hyvin hidas. 10 000 datapistettä (testidata x opetusdata) kestää noin 80 sekuntia, joten älä aja äärimmäisen suurilla testi ja opetusjoukoilla
-- k-arvon (eli kuika monta lähintä naapuria KNN etsii luokittelua varten)
-- "kerrosten" määrän: tämä on sisäisen toteutuksen optimointiin vaikuttava parametri. Ei vaikuta tulokseen, vaikuttaa marginaalisesti nopeuteen. Kannattaa pitäää välillä välillä 5-7. 
+    - testidatan alku ja loppuindeksi
+    - opetusdatan alku ja loppuindeksi
+    - HUOM!! ohjelma on vielä hyvin hidas. 10 000 datapistettä (testidata x opetusdata) kestää noin 80 sekuntia, joten älä aja äärimmäisen suurilla testi ja opetusjoukoilla
+    - k-arvon (eli kuika monta lähintä naapuria KNN etsii luokittelua varten)
+    - "kerrosten" määrän: tämä on sisäisen toteutuksen optimointiin vaikuttava parametri. Ei vaikuta tulokseen, vaikuttaa marginaalisesti nopeuteen. Kannattaa pitäää välillä välillä 5-7. 
+- parametrien asetusnäkymässä tulee painaa "Aseta parametrit", vasta tämä asettaa uudet parametrit
+- "Suorita laskenta annetuilla parametreilla" suorittaa KNN-laskennan
 
 ![parameters](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/kuvat/parameters_view.png)
 
@@ -53,16 +55,16 @@ Ohjelma sisältää hyvin yksinkertaisen käyttöliittymän. Näkymissä voi lii
 ### Tulosnäkymä
 - näyttää tulokset
  - oikein tunnisttettujen määrän
- - väärin tunnistettujen määrän
- - suoritusajan
- - väärin tunnistettujen indeksit
- - väärin tunnistettujen indeksit alkuperäisessä MNIST tietokannassa
- - väärin tunnistetut numerot
- - ennustetut numerot (50 ensimmäistä, jos numeroita on enemmään)
- - oikeat numerot (50 ensimmäistä, jos numeroita on enemmän)
- - harmaasuodattimen arvon
- - k-arvon
- - kerrosten määrän
+    - väärin tunnistettujen määrän
+    - suoritusajan
+    - väärin tunnistettujen indeksit
+    - väärin tunnistettujen indeksit alkuperäisessä MNIST tietokannassa
+    - väärin tunnistetut numerot
+    - ennustetut numerot (50 ensimmäistä, jos numeroita on enemmään)
+    - oikeat numerot (50 ensimmäistä, jos numeroita on enemmän)
+    - harmaasuodattimen arvon
+    - k-arvon
+    - kerrosten määrän
 - voidaan myös näyttää testidatan käsinkirjoitettu numero:
     - syötä kuvan indeksi
     - valitse näytä kuva

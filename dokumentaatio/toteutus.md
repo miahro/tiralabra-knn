@@ -1,6 +1,5 @@
 # Toteutusdokumentti
 
-Hyvin keskeneräinen toteutusdokumentti
 
 ## Rakenne
 

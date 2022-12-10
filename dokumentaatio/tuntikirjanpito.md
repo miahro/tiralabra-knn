@@ -27,15 +27,20 @@ Tiralabra käytetyt tunnit.
 | 5 | 1.12. |  8    | yksikkötestejä, bugikorjauksia, dokumentaatiota, koodin laadun parantamista, käyttöliittymän patantaminen |
 | 5 | 2.12. |  8    | suorituskykytestejä, bugikorjauksia ja pieniä parannuksia, dokementointia |
 | 5 | 3.12. |  3    | suorituskykytestejä, dokementointia |
+| 6 | 8.12. |  7    | vertaisarvioitu toinen työ, yritetty toteuttaa laskentaa bittimatriisiesityksenä ja bittioperaatioilla |
+| 6 | 9.12. |  8    | laajennettu yksikkötestausta, korjattu käyttöliittymän virheitä, siistitty koodia, lisätty kommentteja ja docstringejä |
+| 6 | 10.12. |  6   | manuaalista testausta, testattu toimintaa virtuaalikoneella, dokumentoinnin päivitystä, koodin tyylin ja kommenttien parantamista |
+
+
 
 **Yhteensä**
 | viikko | aika |
 | :---:| :---:|
-| 1   | 13   | 
+| 1   | 13   |
 | 2   | 26   | 
 | 3   | 25   | 
 | 4   | 28   | 
 | 5   | 25   | 
-| 6   | x   | 
-| yht | 117 |
+| 6   | 21   | 
+| yht | 138 |
 
