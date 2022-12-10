@@ -170,7 +170,7 @@ class KNN:
         return Y_pred
 
 
-# poistetaan, joten voi jättää kommentoimatta
+# poistetaan lopullisesta, joten voi jättää kommentoimatta
 
     def hausdorff_distance(self, test_index, train_index):
         """Hausdorf etäisyys

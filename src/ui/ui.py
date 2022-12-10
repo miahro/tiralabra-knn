@@ -29,9 +29,6 @@ class UI:
     def _handle_set_param(self):
         self._show_set_param_view()
 
-    def _handle_param(self):
-        self._show_param_view()
-
     def _handle_result(self):
         self._show_result_view()
 
@@ -43,18 +40,8 @@ class UI:
             self._handle_result,
             self._show_result_view,
             self._datahandler
-            # self._show_set_param_view
         )
         self._current_view.pack()
-
-    # def _show_param_view(self):
-    #     self._hide_current_view()
-    #     self._current_view = ParamView(
-    #         self._root,
-    #         self._handle_set_param,
-    #         self._handle_result
-    #     )
-    #     self._current_view.pack()
 
     def _show_result_view(self):
         self._hide_current_view()

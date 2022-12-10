@@ -137,15 +137,13 @@ class DataHandler:
         if self.Y_predicted is None:
             return {}
         wrong_ind = []
-        for i in range(len(self.Y_test)):
-            if self.Y_test[i] != self.Y_predicted[i]:
-                wrong_ind.append(i)
         wrong_ind_orig_mnist = []
-        for i in range(len(wrong_ind)):
-            wrong_ind_orig_mnist.append(wrong_ind[i]+self.test_index_start)
         wrong_nos = []
-        for i in range(len(wrong_ind)):
-            wrong_nos.append(self.Y_test[wrong_ind[i]])
+        for idx, y in enumerate(self.Y_test):
+            if y != self.Y_predicted[idx]:
+                wrong_ind.append(idx)
+                wrong_ind_orig_mnist.append(idx+self.test_index_start)
+                wrong_nos.append(self.Y_test[idx])
         return {"test_index_start": self.test_index_start, "test_index_end": self.test_index_end,
                 "train_index_start": self.train_index_start,
                 "train_index_end": self.train_index_end,

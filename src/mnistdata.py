@@ -38,41 +38,12 @@ class Mnistdata:
         self.Y_test = self.download(TEST_Y_URL)[8:].tolist()
         X_train_filt_temp = X_train_temp >= filter_value
         self.X_train = X_train_filt_temp.tolist()
-
-#        self.X_train = list(X_train_filt_temp)
         self.X_train_point_list = [np.transpose(
             np.nonzero(x)).tolist() for x in self.X_train]
         X_test_filt_temp = X_test_temp >= filter_value
-#        self.X_test = list(X_test_filt_temp)
         self.X_test = X_test_filt_temp.tolist()
         self.X_test_point_list = [np.transpose(
             np.nonzero(x)).tolist() for x in self.X_test]
-
-        # binary_train_X = []
-        # for x in self.X_train:  # 60k
-        #     temp_bin = []
-        #     for i in range(28):  # 28 rows
-        #         row = x[i]
-        #         # print(row)
-        #         temp = 0
-        #         for j in range(28):  # 28 items
-        #             temp += (2**j)*row[j]
-        #         temp_bin.append(temp)
-        #     binary_train_X.append(temp_bin)
-        # self.binary_train_X = np.array(binary_train_X, dtype='int32')
-
-        # binary_test_X = []
-        # for x in self.X_test:  # 60k
-        #     temp_bin = []
-        #     for i in range(28):  # 28 rows
-        #         row = x[i]
-        #         # print(row)
-        #         temp = 0
-        #         for j in range(28):  # 28 items
-        #             temp += (2**j)*row[j]
-        #         temp_bin.append(temp)
-        #     binary_test_X.append(temp_bin)
-        # self.binary_test_X = np.array(binary_test_X, dtype='int32')
 
     @staticmethod
     def download(url):
