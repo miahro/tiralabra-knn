@@ -6,9 +6,31 @@
 ## Asennus
  - riippuvuuksien hallintaan on käytetetty poetrya
  - kloonaa repositorio
- - asenna riippuvuudet poetryn virtuaaliympäristöön komennolla "poetry install"
- - aja ohjelma komennolla "poetry run invoke start"
+ - asenna riippuvuudet poetryn virtuaaliympäristöön komennolla
+ ```bash
+ poetry install
+ ``` 
+ - aja ohjelma komennolla
+  ```bash
+ poetry run invoke start
+```
  - tarkemmat ohjeet, ks [manuaali](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/manuaali.md)
+
+
+## Muut komentorivitoiminnot
+- yksikkötestit voi ajaa komenolla
+ ```bash
+ poetry run invoke test
+```
+- testikattavuusraportin voi luoda komennolla (ajaa myös yksikkötestit):
+ ```bash
+ poetry run invoke coverage-report
+```
+- koodin laadun voi tarkastaa *pylint*-työkalulla komennolla:
+ ```bash
+ poetry run invoke lint
+```
+
 
 
 ## Dokumentaatiolinkit
