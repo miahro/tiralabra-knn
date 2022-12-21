@@ -1,10 +1,10 @@
 """moduli sisältää luokna LoadView"""
-from tkinter import ttk, constants, StringVar, IntVar
-from datahandler import DataHandler
-from mnistdata import Mnistdata
+from tkinter import ttk, constants, StringVar
+# from datahandler import DataHandler
+# from mnistdata import Mnistdata
 
 
-#TÄMÄ VAATII TARKISTUSTA
+# TÄMÄ VAATII TARKISTUSTA
 
 class LoadView:
     """luokka latausnäkymää varten
@@ -13,9 +13,9 @@ class LoadView:
         root: TKinter-elementti, johon näkymä alustetaan
         handle_set_param: metodikahva parametrien asetusnäkymää varten
         handle_show_set_param: metodiviite parametrien asetusnäkymälle
-        
-    """ 
-    #tämä kesken   
+    """
+    # tämä kesken
+
     def __init__(self, root, handle_set_param, show_set_param_view, show_result_view, datahandler):
         self._root = root
         self._handle_set_param = handle_set_param
@@ -35,7 +35,7 @@ class LoadView:
 
     def destroy(self):
         """tuhoaa näkymän
-        """        
+        """
         self._frame.destroy()
 
     def _show_message(self, message):
@@ -43,13 +43,13 @@ class LoadView:
 
         Args:
             message (string): virheviesti
-        """        
+        """
         self._message.set(message)
         self._message_label.grid()
 
     def _initialize_input_fields(self):
         """alustaa suodattimen asetuskentän
-        """        
+        """
 
         filter_label = ttk.Label(
             master=self._frame, text="Suodattimen arvo (0-255")
@@ -59,8 +59,7 @@ class LoadView:
 
     def _set_filter(self):
         """asettaa harmaasuodattimen arvon datahandler-oliolle
-        """        
-       # print("set filter function")
+        """
         filter_value_input = self._filter_entry.get()
         if not filter_value_input.isnumeric():
             self._show_message("arvon oltava kokonaisluku")
@@ -77,27 +76,20 @@ class LoadView:
     def _load(self):
         """kutsuu datahandelrin set_filter ja read_mnist metodeja
         siirtyy parametrien asetusnäkymään
-        """        
-     #   print("load function functionality here")
-     #   print(self._datahandler.filter_value)
+        """
         self._datahandler.set_filter(self._filter_value)
-     #   print(self._datahandler.filter_value)
         self._datahandler.read_mnist()
-        # print(mnist.Y_train[0])
-        # lataustoiminnallisuus lisättävä tähän
         self._show_set_param_view()
 
     def _clear_entry_fields(self):
         """tyhjentää kentät
-        """        
+        """
         self._filter_entry.delete(0, 'end')
 
     def _initialize(self):
         """alustaa näkymän
-        """        
+        """
         self._frame = ttk.Frame(master=self._root)
-        # print("SetParamView._initialize")
-        # print(self._handle_set_param)
 
         label = ttk.Label(master=self._frame, text="MNIST datan lataus")
         label.grid(row=0, column=0)
@@ -128,15 +120,3 @@ class LoadView:
             text="Lataa MNIST data",
             command=self._load)
         new_user_button.grid(padx=5, pady=5, sticky=constants.EW)
-
-        # text = Label(self, text="Just do it")
-        # text.place(x=70,y=90)
-
-        # set_param_button = ttk.Button(
-        #     master=self._frame,
-        #     text="Kirjaudu sisään",
-        #     command=self._handle_param
-        # )
-
-        # set_param_button.grid(padx=5, pady=5, sticky=constants.EW)
-        # #login_button.grid(row=4, column=0)

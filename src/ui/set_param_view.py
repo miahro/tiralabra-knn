@@ -6,7 +6,8 @@ from config import parameters
 
 class SetParamView:
     """Luokka SetParamView laskentaparametrien asetusta varten
-    """    
+    """
+
     def __init__(self, root, handle_load, handle_result, show_result_view, datahandler):
         """luokan konstruktori
 
@@ -16,7 +17,7 @@ class SetParamView:
             handle_result: metodikahva tulosnäkymälle
             show_result_view (_type_): metodikahva tulosnäkymälle
             datahandler: Datahandler-luokan olio
-        """        
+        """
         self._root = root
         self._handle_load = handle_load
         self._handle_result = handle_result
@@ -47,17 +48,17 @@ class SetParamView:
 
     def pack(self):
         """näyttää näkymän
-        """        
+        """
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
         """tuhoaa näkymän
-        """        
+        """
         self._frame.destroy()
 
     def _initialize_input_fields(self):
         """alustaa kentät parametrien syöttöä varten
-        """        
+        """
 
         test_data_start_label = ttk.Label(
             master=self._frame, text="Testidatan alkuindeksi (0-9999)")
@@ -96,7 +97,7 @@ class SetParamView:
 
     def _set_parameters(self):
         """lukee parametrikentät ja asettaa parametrit
-        """        
+        """
         error = True
 
         self._message.set("")
@@ -187,7 +188,7 @@ class SetParamView:
 
     def _current_values(self):
         """näyttää nykyiset parametrien arvot
-        """        
+        """
         txt0 = ttk.Label(master=self._frame,
                          text=f"Nykyiset arvot")
         txt0.grid(row=2, column=200, padx=5, pady=5, sticky=constants.EW)
@@ -214,12 +215,13 @@ class SetParamView:
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
 
 
-#TÄTÄ EI VISSIIN TARVITA OLLENKAAN?
+# TÄTÄ EI VISSIIN TARVITA OLLENKAAN?
+
     def _calculate_knn(self):
         """asettaa datahandler-olion KNN-laskentaparametrit 
         ja kutsuu datahandler predict metodio
         siirty tulosnäkymään
-        """        
+        """
         self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
                                          self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
@@ -231,13 +233,13 @@ class SetParamView:
 
         Args:
             message (string): virheviesti
-        """        
+        """
         self._message.set(message)
         self._message_label.grid()
 
     def _hide_message(self):
         """piilottaa viestin
-        """        
+        """
         self._message_label.grid_remove()
 
     def _clear_entry_fields(self):
@@ -252,7 +254,7 @@ class SetParamView:
 
     def _initialize(self):
         """alustaa näkymän
-        """        
+        """
         self._frame = ttk.Frame(master=self._root)
 
         label = ttk.Label(master=self._frame, text="Parametrien asetus")

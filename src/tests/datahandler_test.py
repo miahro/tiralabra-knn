@@ -12,7 +12,7 @@ class TestDataHandler(unittest.TestCase):
 
     def setUp(self):
         self.datahandler = DataHandler()
-       #self.datahandler.read_mnist()
+       # self.datahandler.read_mnist()
 
     def test_read_mnist(self):
         self.datahandler.read_mnist()
@@ -59,7 +59,7 @@ class TestDataHandler(unittest.TestCase):
         self.assertEqual(len(self.datahandler.evaluate()), 15)
 
     def test_write_results_to_file(self):
-        self.datahandler.read_mnist()          
+        self.datahandler.read_mnist()
         self.datahandler.write_results_to_file()
         self.assertEqual(Path(OUTPUTFILEPATH).is_file(), False)
         self.datahandler.set_parameters(0, 2, 0, 10, k=1, layers=1)
@@ -68,6 +68,3 @@ class TestDataHandler(unittest.TestCase):
         self.datahandler.write_results_to_file()
         self.datahandler.write_results_to_file()
         self.assertEqual(Path(OUTPUTFILEPATH).is_file(), True)
-
-
-

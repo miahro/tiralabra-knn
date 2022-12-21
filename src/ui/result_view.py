@@ -12,7 +12,8 @@ class ResultView:
         handle_set_param: metodikahva parametrien asetusnäkymään
         datahandler: Datahandler-luokan olio
 
-    """    
+    """
+
     def __init__(self, root, handle_set_param, datahandler):
         """luokan konstruktori
 
@@ -20,7 +21,7 @@ class ResultView:
             root: TKinter elementti, johon näkymä alustetaan
             handle_set_param: metodikahva parametrien asetusnäkymään
             datahandler: Datahandler-luokan olio
-        """        
+        """
         self._root = root
         self._handle_set_param = handle_set_param
         self._datahandler = datahandler
@@ -42,7 +43,7 @@ class ResultView:
 
     def _plot(self):
         """näyttää valitun numeron erillisessä ikkunassa
-        """        
+        """
         ind = self._ind_choice_entry.get()
         if ind.isdigit():
             ind = int(ind)
@@ -54,7 +55,7 @@ class ResultView:
 
     def _save(self):
         """tallentaa tulokset tiedostoon
-        """        
+        """
         self._datahandler.write_results_to_file()
 
     def _view_result_fields(self):
