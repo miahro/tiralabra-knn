@@ -15,49 +15,49 @@ class TestKNN(unittest.TestCase):
         self.knn_same = KNN([A], [Am], [1], [A], [Am], k=1)
         self.knn_close = KNN([A], [Am], [1], [C], [Cm], k=1)
 
-    def test_Hausdorff_distance(self):
-        """vertaa laskettua Hausdorffin etäisyyttä manuaalisesti laskettuun"""
-        self.assertEqual(self.knn.hausdorff_distance(0, 0), 39132)
+    # def test_Hausdorff_distance(self):
+    #     """vertaa laskettua Hausdorffin etäisyyttä manuaalisesti laskettuun"""
+    #     self.assertEqual(self.knn.hausdorff_distance(0, 0), 39132)
 
-    def test_hausdorff_same(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn_same.hausdorff_distance(0, 0), 0)
+    # def test_hausdorff_same(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn_same.hausdorff_distance(0, 0), 0)
 
-    def test_hausdorff_close(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn_close.hausdorff_distance(0, 0), 14682)
+    # def test_hausdorff_close(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn_close.hausdorff_distance(0, 0), 14682)
 
-    def test_predict(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn.predict(), [1])
+    # def test_predict(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn.predict(), [1])
 
-    def test_predict_same(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn_same.predict(), [1])
+    # def test_predict_same(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn_same.predict(), [1])
 
-    def test_predict_close(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn_close.predict(), [1])
+    # def test_predict_close(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn_close.predict(), [1])
 
-    def test_predict_close(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn_close.predict(), [1])
+    # def test_predict_close(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn_close.predict(), [1])
 
-    def test_predict_same(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn_same.predict(), [1])
+    # def test_predict_same(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn_same.predict(), [1])
 
-    def test_predict2(self):
-        """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
-        testitapauksessa vain yhden mittainen lista [1]"""
-        self.assertEqual(self.knn.predict2(), [1])
+    # def test_predict2(self):
+    #     """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa
+    #     testitapauksessa vain yhden mittainen lista [1]"""
+    #     self.assertEqual(self.knn.predict2(), [1])
 
     def test_predict3(self):
         """testaa, että knn.predict palauttaa oikean arvon oikeassa muodossa

@@ -2,7 +2,6 @@
 
 from heapq import heappush, heappop
 from collections import Counter
-from utils import square_distance
 from arrays import SDM, PL
 
 
@@ -46,47 +45,47 @@ class KNN:
         self.sdm = SDM[layers-1]
         self.point_list = PL[layers-1]
 
-# poistetaan, joten voi jättää kommentoimatta
-    def predict(self):
-        """KNN ennustamat ominaisuudet (numero 0-9)
-        toteutus listana
-        kutsuu hausdorffin etäisyyttä funktiona
-        kehitysvaiheeheen funktio tulosten oikeellisuuden tarkastamiseksi
-        """
-        Y_pred = []
-        for i in range(self.n):
-            distance = []
-            for j in range(self.m):
-                d = self.hausdorff_distance(i, j)
-                distance.append((d, self.Y_train[j]))
-            distance = sorted(distance)
-            neightbors = []
-            for item in range(self.k):
-                neightbors.append(distance[item][1])
-            counter = Counter(neightbors).most_common(1)[0]
-            Y_pred.append(counter[0])
-        return Y_pred
+# # poistetaan, joten voi jättää kommentoimatta
+#     def predict(self):
+#         """KNN ennustamat ominaisuudet (numero 0-9)
+#         toteutus listana
+#         kutsuu hausdorffin etäisyyttä funktiona
+#         kehitysvaiheeheen funktio tulosten oikeellisuuden tarkastamiseksi
+#         """
+#         Y_pred = []
+#         for i in range(self.n):
+#             distance = []
+#             for j in range(self.m):
+#                 d = self.hausdorff_distance(i, j)
+#                 distance.append((d, self.Y_train[j]))
+#             distance = sorted(distance)
+#             neightbors = []
+#             for item in range(self.k):
+#                 neightbors.append(distance[item][1])
+#             counter = Counter(neightbors).most_common(1)[0]
+#             Y_pred.append(counter[0])
+#         return Y_pred
 
-# poistetaan, joten voi jättää kommentoimatta
-    def predict2(self):
-        """KNN ennustamat ominaisuudet (numero 0-9)
-        toteutus minimikekona
-        kutsuu hausdorffin etäisyyttä funktiona
-        kehitysvaiheeheen funktio tulosten oikeellisuuden tarkastamiseksi
-        """
-        Y_pred = []
-        for i in range(self.n):
-            heap = []
-            for j in range(self.m):
-                d = self.hausdorff_distance(i, j)
-                heappush(heap, (d, j))
-            neighbors = []
-            for _ in range(self.k):
-                h = heappop(heap)
-                neighbors.append(self.Y_train[h[1]])
-            counter = Counter(neighbors).most_common(1)[0]
-            Y_pred.append(counter[0])
-        return Y_pred
+# # poistetaan, joten voi jättää kommentoimatta
+#     def predict2(self):
+#         """KNN ennustamat ominaisuudet (numero 0-9)
+#         toteutus minimikekona
+#         kutsuu hausdorffin etäisyyttä funktiona
+#         kehitysvaiheeheen funktio tulosten oikeellisuuden tarkastamiseksi
+#         """
+#         Y_pred = []
+#         for i in range(self.n):
+#             heap = []
+#             for j in range(self.m):
+#                 d = self.hausdorff_distance(i, j)
+#                 heappush(heap, (d, j))
+#             neighbors = []
+#             for _ in range(self.k):
+#                 h = heappop(heap)
+#                 neighbors.append(self.Y_train[h[1]])
+#             counter = Counter(neighbors).most_common(1)[0]
+#             Y_pred.append(counter[0])
+#         return Y_pred
 
     def predict3(self):
         """KNN ennustamat ominaisuudet (numero 0-9)
@@ -173,47 +172,47 @@ class KNN:
 # poistetaan lopullisesta, joten voi jättää kommentoimatta
 
 
-    def hausdorff_distance(self, test_index, train_index):
-        """Hausdorf etäisyys
-            suunnattu funktio d6b (eli painottamaton summa)
-            ja tässä vaiheessa suuntaamattoman etäisyyden funktio summana d(A,B)+d(B,A)
-        """
-        sum_AB = 0
+    # def hausdorff_distance(self, test_index, train_index):
+    #     """Hausdorf etäisyys
+    #         suunnattu funktio d6b (eli painottamaton summa)
+    #         ja tässä vaiheessa suuntaamattoman etäisyyden funktio summana d(A,B)+d(B,A)
+    #     """
+    #     sum_AB = 0
 
-        for a in self.X_test_points[test_index]:
-            not_found = True
-            if self.X_train_matrix[train_index][a[0]][a[1]]:
-                continue
-            for close in self.point_list:
-                if (close[0] + a[0] < 0 or close[0] + a[0] > 27
-                        or close[1] + a[1] < 0 or close[1]+a[1] > 27):
-                    continue
-                if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
-                    sum_AB += self.sdm[close[0] +
-                                       self.layers][close[1]+self.layers]
-                    not_found = False
-                    break
+    #     for a in self.X_test_points[test_index]:
+    #         not_found = True
+    #         if self.X_train_matrix[train_index][a[0]][a[1]]:
+    #             continue
+    #         for close in self.point_list:
+    #             if (close[0] + a[0] < 0 or close[0] + a[0] > 27
+    #                     or close[1] + a[1] < 0 or close[1]+a[1] > 27):
+    #                 continue
+    #             if self.X_train_matrix[train_index][close[0]+a[0]][close[1]+a[1]]:
+    #                 sum_AB += self.sdm[close[0] +
+    #                                    self.layers][close[1]+self.layers]
+    #                 not_found = False
+    #                 break
 
-            if not_found:
-                sum_AB += min([square_distance(a, b)
-                              for b in self.X_train_points[train_index]])
+    #         if not_found:
+    #             sum_AB += min([square_distance(a, b)
+    #                           for b in self.X_train_points[train_index]])
 
-        sum_BA = 0
-        for b in self.X_train_points[train_index]:
-            not_found = True
-            if self.X_test_matrix[test_index][b[0]][b[1]]:
-                continue
-            for close in self.point_list:
-                if (close[0] + b[0] < 0 or close[0] + b[0] > 27
-                        or close[1] + b[1] < 0 or close[1]+b[1] > 27):
-                    continue
-                if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
-                    sum_BA += self.sdm[close[0] +
-                                       self.layers][close[1]+self.layers]
-                    not_found = False
-                    break
-            if not_found:
-                sum_BA += min([square_distance(b, a)  # pylint: disable=arguments-out-of-order
-                              for a in self.X_test_points[test_index]])
+    #     sum_BA = 0
+    #     for b in self.X_train_points[train_index]:
+    #         not_found = True
+    #         if self.X_test_matrix[test_index][b[0]][b[1]]:
+    #             continue
+    #         for close in self.point_list:
+    #             if (close[0] + b[0] < 0 or close[0] + b[0] > 27
+    #                     or close[1] + b[1] < 0 or close[1]+b[1] > 27):
+    #                 continue
+    #             if self.X_test_matrix[test_index][close[0]+b[0]][close[1]+b[1]]:
+    #                 sum_BA += self.sdm[close[0] +
+    #                                    self.layers][close[1]+self.layers]
+    #                 not_found = False
+    #                 break
+    #         if not_found:
+    #             sum_BA += min([square_distance(b, a)  # pylint: disable=arguments-out-of-order
+    #                           for a in self.X_test_points[test_index]])
 
-        return sum_AB+sum_BA
+    #     return sum_AB+sum_BA
