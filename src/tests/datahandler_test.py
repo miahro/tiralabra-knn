@@ -12,7 +12,6 @@ class TestDataHandler(unittest.TestCase):
 
     def setUp(self):
         self.datahandler = DataHandler()
-       # self.datahandler.read_mnist()
 
     def test_read_mnist(self):
         self.datahandler.read_mnist()
