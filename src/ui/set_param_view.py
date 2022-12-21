@@ -1,10 +1,22 @@
+"""moduli sisältää luokan SetParamView"""
 from tkinter import ttk, constants, Label, StringVar
 from datahandler import datahandler
 from config import parameters
 
 
 class SetParamView:
+    """Luokka SetParamView laskentaparametrien asetusta varten
+    """    
     def __init__(self, root, handle_load, handle_result, show_result_view, datahandler):
+        """luokan konstruktori
+
+        Args:
+            root: TKinter elementti, johon  näkymä alustetaan
+            handle_load: metodikahva latausnäkymälle
+            handle_result: metodikahva tulosnäkymälle
+            show_result_view (_type_): metodikahva tulosnäkymälle
+            datahandler: Datahandler-luokan olio
+        """        
         self._root = root
         self._handle_load = handle_load
         self._handle_result = handle_result
@@ -34,12 +46,18 @@ class SetParamView:
         self._initialize()
 
     def pack(self):
+        """näyttää näkymän
+        """        
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """tuhoaa näkymän
+        """        
         self._frame.destroy()
 
     def _initialize_input_fields(self):
+        """alustaa kentät parametrien syöttöä varten
+        """        
 
         test_data_start_label = ttk.Label(
             master=self._frame, text="Testidatan alkuindeksi (0-9999)")
@@ -77,6 +95,8 @@ class SetParamView:
         self._layers_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
     def _set_parameters(self):
+        """lukee parametrikentät ja asettaa parametrit
+        """        
         error = True
 
         self._message.set("")
@@ -166,6 +186,8 @@ class SetParamView:
             self.pack()
 
     def _current_values(self):
+        """näyttää nykyiset parametrien arvot
+        """        
         txt0 = ttk.Label(master=self._frame,
                          text=f"Nykyiset arvot")
         txt0.grid(row=2, column=200, padx=5, pady=5, sticky=constants.EW)
@@ -191,7 +213,13 @@ class SetParamView:
                          text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
 
+
+#TÄTÄ EI VISSIIN TARVITA OLLENKAAN?
     def _calculate_knn(self):
+        """asettaa datahandler-olion KNN-laskentaparametrit 
+        ja kutsuu datahandler predict metodio
+        siirty tulosnäkymään
+        """        
         self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
                                          self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
@@ -199,13 +227,22 @@ class SetParamView:
         self._show_result_view()
 
     def _show_message(self, message):
+        """näyttää virheviestin (virheellisistä paremetreista)
+
+        Args:
+            message (string): virheviesti
+        """        
         self._message.set(message)
         self._message_label.grid()
 
     def _hide_message(self):
+        """piilottaa viestin
+        """        
         self._message_label.grid_remove()
 
     def _clear_entry_fields(self):
+        """tyhjentää parametrien asetuskentät
+        """
         self._test_data_start_entry.delete(0, 'end')
         self._test_data_end_entry.delete(0, 'end')
         self._train_data_start_entry.delete(0, 'end')
@@ -214,6 +251,8 @@ class SetParamView:
         self._layers_entry.delete(0, 'end')
 
     def _initialize(self):
+        """alustaa näkymän
+        """        
         self._frame = ttk.Frame(master=self._root)
 
         label = ttk.Label(master=self._frame, text="Parametrien asetus")

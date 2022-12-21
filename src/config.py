@@ -13,12 +13,12 @@ TEST_X_URL = "http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz"
 TEST_Y_URL = "http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz"
 
 
-datafolder = os.getenv("DATAFOLDER")
+datafolder = os.getenv("DATAFOLDER") or "data"
 DATAFILEPATH = os.path.join(directory, "..", datafolder)
 
 
 
-outputfile = os.getenv("OUTPUTFILE")
+outputfile = os.getenv("OUTPUTFILE") or "knn_results.csv"
 OUTPUTFILEPATH = os.path.join(
     directory, "..", datafolder, outputfile)
 

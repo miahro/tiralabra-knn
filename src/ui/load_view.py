@@ -1,9 +1,21 @@
+"""moduli sisältää luokna LoadView"""
 from tkinter import ttk, constants, StringVar, IntVar
 from datahandler import DataHandler
 from mnistdata import Mnistdata
 
 
+#TÄMÄ VAATII TARKISTUSTA
+
 class LoadView:
+    """luokka latausnäkymää varten
+
+    Attributes:
+        root: TKinter-elementti, johon näkymä alustetaan
+        handle_set_param: metodikahva parametrien asetusnäkymää varten
+        handle_show_set_param: metodiviite parametrien asetusnäkymälle
+        
+    """ 
+    #tämä kesken   
     def __init__(self, root, handle_set_param, show_set_param_view, show_result_view, datahandler):
         self._root = root
         self._handle_set_param = handle_set_param
@@ -18,16 +30,26 @@ class LoadView:
         self._initialize()
 
     def pack(self):
+        "näyttää näkymän"
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """tuhoaa näkymän
+        """        
         self._frame.destroy()
 
     def _show_message(self, message):
+        """näyttää virheviestin virheellisestä suodattimen arvosta
+
+        Args:
+            message (string): virheviesti
+        """        
         self._message.set(message)
         self._message_label.grid()
 
     def _initialize_input_fields(self):
+        """alustaa suodattimen asetuskentän
+        """        
 
         filter_label = ttk.Label(
             master=self._frame, text="Suodattimen arvo (0-255")
@@ -36,6 +58,8 @@ class LoadView:
         self._filter_entry.grid(padx=5, pady=5, sticky=constants.EW)
 
     def _set_filter(self):
+        """asettaa harmaasuodattimen arvon datahandler-oliolle
+        """        
        # print("set filter function")
         filter_value_input = self._filter_entry.get()
         if not filter_value_input.isnumeric():
@@ -51,6 +75,9 @@ class LoadView:
             self.pack()
 
     def _load(self):
+        """kutsuu datahandelrin set_filter ja read_mnist metodeja
+        siirtyy parametrien asetusnäkymään
+        """        
      #   print("load function functionality here")
      #   print(self._datahandler.filter_value)
         self._datahandler.set_filter(self._filter_value)
@@ -61,9 +88,13 @@ class LoadView:
         self._show_set_param_view()
 
     def _clear_entry_fields(self):
+        """tyhjentää kentät
+        """        
         self._filter_entry.delete(0, 'end')
 
     def _initialize(self):
+        """alustaa näkymän
+        """        
         self._frame = ttk.Frame(master=self._root)
         # print("SetParamView._initialize")
         # print(self._handle_set_param)

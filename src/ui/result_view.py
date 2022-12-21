@@ -1,9 +1,26 @@
+"""moduli sisältää luokan ResultView"""
+
 from tkinter import ttk, constants, Label
 from matplotlib import pyplot as plt
 
 
 class ResultView:
+    """Luokka tulosnäkymää varten
+
+    Attributes:
+        root: TKinter elementti, johon näkymä alustetaan
+        handle_set_param: metodikahva parametrien asetusnäkymään
+        datahandler: Datahandler-luokan olio
+
+    """    
     def __init__(self, root, handle_set_param, datahandler):
+        """luokan konstruktori
+
+        Args:
+            root: TKinter elementti, johon näkymä alustetaan
+            handle_set_param: metodikahva parametrien asetusnäkymään
+            datahandler: Datahandler-luokan olio
+        """        
         self._root = root
         self._handle_set_param = handle_set_param
         self._datahandler = datahandler
@@ -11,16 +28,21 @@ class ResultView:
         self._initialize()
 
     def pack(self):
+        """näyttää näkymän"""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """tuhoaa näkymän"""
         self._frame.destroy()
 
     def _calculate_knn(self):
+        """kutsuu datahandler-olion predict funktiota ja evaluate funktiota"""
         self._datahandler.predict()
         self._result = self._datahandler.evaluate()
 
     def _plot(self):
+        """näyttää valitun numeron erillisessä ikkunassa
+        """        
         ind = self._ind_choice_entry.get()
         if ind.isdigit():
             ind = int(ind)
@@ -31,9 +53,12 @@ class ResultView:
                 plt.show()
 
     def _save(self):
+        """tallentaa tulokset tiedostoon
+        """        
         self._datahandler.write_results_to_file()
 
     def _view_result_fields(self):
+        """näyttää tulokset"""
 
         correct_label = ttk.Label(
             master=self._frame, text=f"Oikein tunnistettuja:")
@@ -137,6 +162,7 @@ class ResultView:
                               column=1, sticky=constants.W)
 
     def _initialize(self):
+        """alustaa näkymän"""
         self._calculate_knn()
         self._frame = ttk.Frame(master=self._root)
         label = ttk.Label(master=self._frame, text="Tulokset")
