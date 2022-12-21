@@ -63,7 +63,6 @@ class UI:
             self._root,
             self._handle_load,
             self._handle_result,
-            self._show_result_view,
             self._datahandler
         )
         self._current_view.pack()
@@ -85,9 +84,7 @@ class UI:
         self._hide_current_view()
         self._current_view = LoadView(
             self._root,
-            self._handle_set_param,
             self._show_set_param_view,
-            self._show_result_view,
             self._datahandler
         )
         self._current_view.pack()

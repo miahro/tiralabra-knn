@@ -1,32 +1,30 @@
 """moduli sisältää luokna LoadView"""
 from tkinter import ttk, constants, StringVar
-# from datahandler import DataHandler
-# from mnistdata import Mnistdata
-
-
-# TÄMÄ VAATII TARKISTUSTA
 
 class LoadView:
     """luokka latausnäkymää varten
 
     Attributes:
         root: TKinter-elementti, johon näkymä alustetaan
-        handle_set_param: metodikahva parametrien asetusnäkymää varten
         handle_show_set_param: metodiviite parametrien asetusnäkymälle
+        datahandler: datahandler-luokan olio
     """
-    # tämä kesken
 
-    def __init__(self, root, handle_set_param, show_set_param_view, show_result_view, datahandler):
+    def __init__(self, root,show_set_param_view, datahandler):
+        """luokan konstruktori
+
+        Args:
+            root: TKinter-elementti, johon näkymä alustetaan
+            handle_show_set_param: metodiviite parametrien asetusnäkymälle
+            datahandler: datahandler-luokan olio
+        """
         self._root = root
-        self._handle_set_param = handle_set_param
         self._show_set_param_view = show_set_param_view
-        self._show_result_view = show_result_view
         self._frame = None
         self._message = None
         self._message_label = None
         self._filter_value = 128
         self._datahandler = datahandler
-    #   print(self._datahandler)
         self._initialize()
 
     def pack(self):

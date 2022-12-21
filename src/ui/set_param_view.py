@@ -5,22 +5,26 @@ from config import parameters
 
 class SetParamView:
     """Luokka SetParamView laskentaparametrien asetusta varten
+
+    Attributes:
+            root: TKinter elementti, johon  näkymä alustetaan
+            handle_load: metodikahva latausnäkymälle
+            handle_result: metodikahva tulosnäkymälle
+            datahandler: Datahandler-luokan olio
     """
 
-    def __init__(self, root, handle_load, handle_result, show_result_view, datahandler):
+    def __init__(self, root, handle_load, handle_result, datahandler):
         """luokan konstruktori
 
         Args:
             root: TKinter elementti, johon  näkymä alustetaan
             handle_load: metodikahva latausnäkymälle
             handle_result: metodikahva tulosnäkymälle
-            show_result_view (_type_): metodikahva tulosnäkymälle
             datahandler: Datahandler-luokan olio
         """
         self._root = root
         self._handle_load = handle_load
         self._handle_result = handle_result
-        self._show_result_view = show_result_view
         self._frame = None
 
         self._datahandler = datahandler
@@ -212,20 +216,6 @@ class SetParamView:
         txt6 = ttk.Label(master=self._frame,
                     text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
-
-
-# TÄTÄ EI VISSIIN TARVITA OLLENKAAN?
-
-    def _calculate_knn(self):
-        """asettaa datahandler-olion KNN-laskentaparametrit
-        ja kutsuu datahandler predict metodio
-        siirty tulosnäkymään
-        """
-        self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
-                    self._train_index_start, self._train_index_end, self._k_value, self._layers)
-        self._datahandler.init_knn()
-        self._datahandler.predict()
-        self._show_result_view()
 
     def _show_message(self, message):
         """näyttää virheviestin (virheellisistä paremetreista)
