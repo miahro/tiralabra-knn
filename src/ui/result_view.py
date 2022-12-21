@@ -1,6 +1,6 @@
 """moduli sisältää luokan ResultView"""
 
-from tkinter import ttk, constants, Label
+from tkinter import ttk, constants
 from matplotlib import pyplot as plt
 
 
@@ -62,7 +62,7 @@ class ResultView:
         """näyttää tulokset"""
 
         correct_label = ttk.Label(
-            master=self._frame, text=f"Oikein tunnistettuja:")
+            master=self._frame, text="Oikein tunnistettuja:")
         correct_label.grid(padx=5, pady=5, row=1, column=0, sticky=constants.W)
 
         correct_val_label = ttk.Label(
@@ -71,7 +71,7 @@ class ResultView:
                                column=1, sticky=constants.W)
 
         wrong_label = ttk.Label(
-            master=self._frame, text=f"Väärin tunnistettuja: ")
+            master=self._frame, text="Väärin tunnistettuja: ")
         wrong_label.grid(padx=5, pady=5, row=3, column=0, sticky=constants.W)
 
         wrong_val_label = ttk.Label(
@@ -80,7 +80,7 @@ class ResultView:
                              column=1, sticky=constants.W)
 
         time_label = ttk.Label(
-            master=self._frame, text=f"Suoritusaika sekuntia: ")
+            master=self._frame, text="Suoritusaika sekuntia: ")
         time_label.grid(padx=5, pady=5, row=5, column=0, sticky=constants.W)
 
         time_val_label = ttk.Label(
@@ -89,7 +89,7 @@ class ResultView:
                             column=1, sticky=constants.W)
 
         wrong_ind_label = ttk.Label(
-            master=self._frame, text=f"Väärien indeksit: ")
+            master=self._frame, text="Väärien indeksit: ")
         wrong_ind_label.grid(padx=5, pady=5, row=7,
                              column=0, sticky=constants.W)
 
@@ -99,7 +99,7 @@ class ResultView:
             padx=5, pady=5, row=7, column=1, sticky=constants.W)
 
         wrong_ind_mnist_label = ttk.Label(
-            master=self._frame, text=f"Väärien indeksit alkuperäisessä MNIST datassa: ")
+            master=self._frame, text="Väärien indeksit alkuperäisessä MNIST datassa: ")
         wrong_ind_mnist_label.grid(
             padx=5, pady=5, row=9, column=0, sticky=constants.W)
 
@@ -109,7 +109,7 @@ class ResultView:
             padx=5, pady=5, row=9, column=1, sticky=constants.W)
 
         wrong_nos_label = ttk.Label(
-            master=self._frame, text=f"Väärin tunnistetut numerot: ")
+            master=self._frame, text="Väärin tunnistetut numerot: ")
         wrong_nos_label.grid(padx=5, pady=5, row=11,
                              column=0, sticky=constants.W)
 
@@ -119,7 +119,7 @@ class ResultView:
             padx=5, pady=5, row=11, column=1, sticky=constants.W)
 
         predY_label = ttk.Label(
-            master=self._frame, text=f"Ennustetut numerot (50 ensimmäistä): ")
+            master=self._frame, text="Ennustetut numerot (50 ensimmäistä): ")
         predY_label.grid(padx=5, pady=5, row=13, column=0, sticky=constants.W)
 
         predY_val_label = ttk.Label(
@@ -128,7 +128,7 @@ class ResultView:
                              column=1, sticky=constants.W)
 
         testY_label = ttk.Label(
-            master=self._frame, text=f"Oikeat numerot (50 ensimmäistä): ")
+            master=self._frame, text="Oikeat numerot (50 ensimmäistä): ")
         testY_label.grid(padx=5, pady=5, row=15, column=0, sticky=constants.W)
 
         testY_val_label = ttk.Label(
@@ -137,7 +137,7 @@ class ResultView:
                              column=1, sticky=constants.W)
 
         filter_label = ttk.Label(
-            master=self._frame, text=f"Harmaasuodattimen arvo: ")
+            master=self._frame, text="Harmaasuodattimen arvo: ")
         filter_label.grid(padx=5, pady=5, row=17, column=0, sticky=constants.W)
 
         filter_val_label = ttk.Label(
@@ -146,7 +146,7 @@ class ResultView:
                               column=1, sticky=constants.W)
 
         k_label = ttk.Label(
-            master=self._frame, text=f"k-arvo: ")
+            master=self._frame, text="k-arvo: ")
         k_label.grid(padx=5, pady=5, row=19, column=0, sticky=constants.W)
 
         k_val_label = ttk.Label(
@@ -154,7 +154,7 @@ class ResultView:
         k_val_label.grid(padx=5, pady=5, row=19, column=1, sticky=constants.W)
 
         layers_label = ttk.Label(
-            master=self._frame, text=f"kerrokset: ")
+            master=self._frame, text="kerrokset: ")
         layers_label.grid(padx=5, pady=5, row=21, column=0, sticky=constants.W)
 
         layers_val_label = ttk.Label(

@@ -1,6 +1,5 @@
 from invoke import task
 
-
 @task
 def start(ctx):
     ctx.run("python3 src/index.py", pty=True)
@@ -8,7 +7,6 @@ def start(ctx):
 @task
 def lint(ctx):
     ctx.run("pylint src", pty=True)
-
 
 @task
 def coverage_report(ctx):

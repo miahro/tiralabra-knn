@@ -1,6 +1,5 @@
 """moduli sisältää luokan SetParamView"""
-from tkinter import ttk, constants, Label, StringVar
-from datahandler import datahandler
+from tkinter import ttk, constants, StringVar
 from config import parameters
 
 
@@ -41,7 +40,7 @@ class SetParamView:
             self._layers = parameters["layers"]
 
         self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
-                                         self._train_index_start, self._train_index_end, self._k_value, self._layers)
+                    self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
 
         self._initialize()
@@ -175,7 +174,7 @@ class SetParamView:
 
         if not error:
             self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
-                                             self._train_index_start, self._train_index_end, self._k_value, self._layers)
+                        self._train_index_start, self._train_index_end, self._k_value, self._layers)
             self._datahandler.init_knn()
 
             self.destroy()
@@ -190,7 +189,7 @@ class SetParamView:
         """näyttää nykyiset parametrien arvot
         """
         txt0 = ttk.Label(master=self._frame,
-                         text=f"Nykyiset arvot")
+                         text="Nykyiset arvot")
         txt0.grid(row=2, column=200, padx=5, pady=5, sticky=constants.EW)
         txt1 = ttk.Label(master=self._frame,
                          text=f"Testidatan alkuindeksi {self._test_index_start}")
@@ -211,19 +210,19 @@ class SetParamView:
                          text=f"Kerrokset {self._layers}")
         txt5.grid(row=12, column=200, padx=5, pady=5, sticky=constants.EW)
         txt6 = ttk.Label(master=self._frame,
-                         text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
+                    text=f"MNIST data luettu suodattimen arvolla {self._datahandler.filter_value}")
         txt6.grid(row=14, column=200, padx=5, pady=5, sticky=constants.EW)
 
 
 # TÄTÄ EI VISSIIN TARVITA OLLENKAAN?
 
     def _calculate_knn(self):
-        """asettaa datahandler-olion KNN-laskentaparametrit 
+        """asettaa datahandler-olion KNN-laskentaparametrit
         ja kutsuu datahandler predict metodio
         siirty tulosnäkymään
         """
         self._datahandler.set_parameters(self._test_index_start, self._test_index_end,
-                                         self._train_index_start, self._train_index_end, self._k_value, self._layers)
+                    self._train_index_start, self._train_index_end, self._k_value, self._layers)
         self._datahandler.init_knn()
         self._datahandler.predict()
         self._show_result_view()
