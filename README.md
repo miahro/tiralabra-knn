@@ -41,9 +41,10 @@
 - [viikkoraportti 4](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_4.md)
 - [viikkoraportti 5](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_5.md)
 - [viikkoraportti 6](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_6.md)
+- [viikkoraportti 7](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/viikkoraportti_7.md)
 - [määrittelydokumentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/Maarittely.pdf)
 - [testausdokumentti](dokumentaatio/testaus.md)
 - [toteutusdokumentti](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/toteutus.md)
 - [manuaali](https://github.com/miahro/tiralabra-knn/blob/main/dokumentaatio/manuaali.md)
-
+- [loppupalautus release](https://github.com/miahro/tiralabra-knn/releases/tag/loppupalautus)
 
