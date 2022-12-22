@@ -112,13 +112,19 @@ class KNN:
                             minimum = min(minimum, (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1]))
                         sum_BA += minimum
                 # suuntaamattomana etäisyytenä käytetään tässä summaa d(A,B)+d(B,A)
-                # muita Hausdorff etäisyyksiä hakiessä tämä pitäisi muuttaa
-                # suuntaamaton etäisyys ja opetuskuvan indeksi kekoon
+                # muita Hausdorff etäisyyksiä hakiessä tämä pitää muuttaa
+                # vaihtoehdot jätetty alle kommentoituina riveinä
+
                 d = sum_AB + sum_BA
+                #d = self.n*sum_AB + self.m*sum_BA #painotettu keskiarvo
+                #d = min(sum_AB, sum_BA) #minimi
+                #d = max(sum_AB, sum_BA) #maksimi
+
+                # suuntaamaton etäisyys ja opetuskuvan indeksi kekoon
                 heappush(heap, (d, train_index))
             neighbors = []
             # keosta haetaan k-lähintä etäisyyttä
-            # ja näiden ominaisuudet Y_pred listaan
+            # ja näiden ominaisuudet lisätäään Y_pred listaan
             for _ in range(self.k):
                 h = heappop(heap)
                 neighbors.append(self.Y_train[h[1]])
