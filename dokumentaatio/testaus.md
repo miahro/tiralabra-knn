@@ -75,11 +75,11 @@ Hieman yllättäen paras tulos tuli arvoilla 50, 75 ja 175, ja huonoin tulos arv
 
 ### Tunnistuksen tarkkuus
 Tunnistuksen tarkkuutta testattiin seuraavalla datalla:
-    - testidatan indeksit 0-500
-    - opetusdatan inkdeksit 0 - [100, 500, 1000, 2000, 5000, 10000, 30000, 60000]
-    - harmaasuodatin 75
-    - k-arvo 3
-    - kerrokset 7
+- testidatan indeksit 0-500
+- opetusdatan inkdeksit 0 - [100, 500, 1000, 2000, 5000, 10000, 30000, 60000]
+- harmaasuodatin 75
+- k-arvo 3
+- kerrokset 7
 - tulokset:
     - tunnistuksen tarkkuus parani, eli virheprosentti pieneni opetusdatan kasvaessa. Tämä toimii kuten pitääkin
     - täydellä 60k opetusdatalla päästiin 2,6% virheeseen, eli 97,4% tunnistustarkkuuteen, jota voidaan pitää kohtalaisen hyvänä
@@ -104,7 +104,64 @@ Täydellä opetusjoukolla virheellisiä tunnistuksia oli 13 kpl (500 kappaleesta
 
 Numero 4 oli siis selkeästi vaikein tunnistaa.
 
+### Tunnistuksen tarkkuus toisella testijoukolla
+Kohtalaisen pienillä testijoukoilla testijoukon valinta vaikuttaa jonkin verran tunnistustarkkuuteen. Tämän tutkimiseksi ajettiin tunnistuksen tarkkuus testi myös seuraavilla parametreilla:
+- testidatan indeksit 1000-2000
+- opetusdatana koko opetusjoukko (indeksit 0-60000)
+- harmaasuodatin 75
+- k-arvo 3
+- kerrokset 7
 
-## Koodin laadunseuranta
-- koodin pylint arvo on 9.83/10
+Tästä tuloksina:
+| parametri | tulos | yksikkö |
+| :---: | :----:| :----:|
+| virheellisesti tunnistettuja | 36  | kpl |
+| virheprosentti | 3,6  | %|
+| tunnistustarkkuus  | 96,4  | % |
+| ajoaika | 13,1  | h |
+
+Väärien frekvenssit
+| numero | vääriä |
+| :---: | :----:|
+| 0 | 0  | 
+| 1 | 0  | 
+| 2 | 2  | 
+| 3 | 2  | 
+| 4 | 5  | 
+| 5 | 5  | 
+| 6 | 2  | 
+| 7 | 7  | 
+| 8 | 5  | 
+| 9 | 8  | 
+
+Tämä tulos poikkesi jossain määrin edellisestä joukosta, nyt vaikemmat tunnistettavat olivatkin numerot 9 ja 7. 
+
+### Muiden Hausdorff-etäisyyksien testaus
+Vaihtoehtoita testattiin myös muita etäisyysmittoja verrattuna muussa testauksessa käytettyyn f3:n:
+- f1 = min(d(A,B), d(B,A))
+- f2 = max(d(A,B), d(B,A))
+- f4 = N_a * d(A,B) + N_b * d(B,A) ; tämä siis ilman jakajaan (N_a+N_b), koska tämä ei vaikuta järjestykseen
+
+Testi ajettiin seuraavilla parametreilla:
+- testidatan indeksit 0-500
+    - opetusdatan inkdeksit 0 - 1000
+    - harmaasuodatin 75
+    - k-arvo 3
+    - kerrokset 7
+
+Tulokset
+| f | vääriä |
+| :---: | :----:|
+| f1 | 138  | 
+| f2| 61  | 
+| f3 | 51  | 
+| f4 | 56  | 
+
+
+
+Vaikka testijoukko on pieni ja opetusjoukko myös hyvin pieni, tulos näyttää kuitenkin melko selvästi, että f3 eli d(A,B)+ d(B,A) antaa parhaan tuloksen. Näin ollen muita suuntaamattomia etäisyyksiä ei ole testattu tämän enempää. 
+
+## Koodin staattisen laadun seuranta
+- koodin pylint arvo on 9.76/10
+- pylintin havaitsemat virheet ovat lähinnä "too many attributes", "too many branches" ja "too many arguments" virheitä. Nämä johtuvat pitkälti siitä, että knn/Haudorff -laskenta on tehokkuusyistä toteutettu yhdessä luokassa ja yhdessä funktiossa. Koodista saisi helposti tyylillisesti parempaa jakamalla toiminnallisuutta eri luokkiin ja funktioihin, mutta tämä toisaalta aiheuttaisi usein toistuvia funktiokutsuja ja suoritusnopeuden hidastumista
 - käyttöliittymä ja testit eivät ole mukana pylint arviossa

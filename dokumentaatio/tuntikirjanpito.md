@@ -30,6 +30,8 @@ Tiralabra käytetyt tunnit.
 | 6 | 8.12. |  7    | vertaisarvioitu toinen työ, yritetty toteuttaa laskentaa bittimatriisiesityksenä ja bittioperaatioilla |
 | 6 | 9.12. |  8    | laajennettu yksikkötestausta, korjattu käyttöliittymän virheitä, siistitty koodia, lisätty kommentteja ja docstringejä |
 | 6 | 10.12. |  6   | manuaalista testausta, testattu toimintaa virtuaalikoneella, dokumentoinnin päivitystä, koodin tyylin ja kommenttien parantamista |
+| 7 | 21.12. |  6   | refaktorointia, docstringien lisäämistä, dokumentointia, testausta |
+| 7 | 22.12. |  4   | testausta, dokumentointia|
 
 
 
@@ -42,5 +44,6 @@ Tiralabra käytetyt tunnit.
 | 4   | 28   | 
 | 5   | 25   | 
 | 6   | 21   | 
-| yht | 138 |
+| 7   | 10   | 
+| yht | 148 |
 
