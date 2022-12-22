@@ -66,7 +66,7 @@ Hieman yllättäen paras tulos tuli arvoilla 50, 75 ja 175, ja huonoin tulos arv
     - k-arvo 3
     - kerrokset 7
 - tulokset:
-    - ajoaika on selvästi lineaarinen (kuten pitääkin) suhteessa testidatan määrä * opetusdatan määrä
+    - ajoaika on selvästi lineaarinen (kuten pitääkin) suhteessa testidatan määrä * opetusdatan määrä (eli O(MN))
     - yksi testinumero vs yksi opetusnumero kestää 0,8 millisekuntia
     - näin ollen koko 10k * 60k datajoukko kestäisi 134 tuntia
 
